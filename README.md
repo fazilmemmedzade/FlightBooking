@@ -4,7 +4,7 @@
 
 * **Framework:** .NET Core (.NET 8 / ML.NET)
 * **Database:** MongoDB
-* **User Interface (UI):** Modern, responsive HTML/CSS/JS (Tailwind CSS) UI designed with Claude AI support
+* **User Interface (UI):** Modern, responsive HTML/CSS/JS UI designed with Claude AI support
 * **Artificial Intelligence (AI) & ML:**
 * `ML.NET` (No-Show & Overbooking forecasting engine)
 * `Llama-3.1-8b` (Smart Travel Assistant / Chatbot)
