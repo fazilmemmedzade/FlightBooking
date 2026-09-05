@@ -346,7 +346,7 @@ In addition to the customer-facing booking experience, the system provides an ad
 
 |                                            User - Flight Booking                                           |
 | :--------------------------------------------------------------------------------------------------------: |
-| <img width="920" alt="User 3" src="https://github.com/fazilmmmdzad/My-Files/blob/main/PageForUser3.png" /> |
+| <img width="460" alt="User 3" src="https://github.com/fazilmmmdzad/My-Files/blob/main/PageForUser3.png" /> |
 
 |                                            Admin - Flight List                                            |                                            Admin - Flight Detail                                            |
 | :-------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------: |
