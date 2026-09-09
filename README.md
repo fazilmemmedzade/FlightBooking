@@ -340,54 +340,61 @@ In addition to the customer-facing booking experience, the system provides an ad
 
 ## 📸 Screenshots
 
-|                                            User - Flight Search                                            |                                          User - Flight Search (2)                                          |
-| :--------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------: |
+| User - Landing Page (1) | User - Landing Page (2) |
+| :---------------------: | :---------------------: |
 | <img width="460" alt="User 1" src="https://github.com/fazilmmmdzad/My-Files/blob/main/PageForUser1.png" /> | <img width="460" alt="User 2" src="https://github.com/fazilmmmdzad/My-Files/blob/main/PageForUser2.png" /> |
 
-|                                            User - Flight Booking                                           |
-| :--------------------------------------------------------------------------------------------------------: |
-| <img width="460" alt="User 3" src="https://github.com/fazilmmmdzad/My-Files/blob/main/PageForUser3.png" /> |
+| User - Landing Page (3) | User - Flight Index |
+| :---------------------: | :-----------------: |
+| <img width="460" alt="User 3" src="https://github.com/fazilmmmdzad/My-Files/blob/main/PageForUser3.png" /> | <img width="460" alt="Flight 1" src="https://github.com/fazilmemmedzade/My-Files/blob/main/FlightIndex.png" /> |
 
-|                                            Admin - Flight List                                            |                                            Admin - Flight Detail                                            |
-| :-------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------: |
-| <img width="460" alt="Admin 1" src="https://github.com/fazilmmmdzad/My-Files/blob/main/FlightList.png" /> | <img width="460" alt="Admin 2" src="https://github.com/fazilmmmdzad/My-Files/blob/main/FlightDetail.png" /> |
+| User - Flight Index (2) | User - Search Page |
+| :---------------------: | :----------------: |
+| <img width="460" alt="Flight 2" src="https://github.com/fazilmemmedzade/My-Files/blob/main/FlightIndex2.png" /> | <img width="460" alt="Flight 4" src="https://github.com/fazilmemmedzade/My-Files/blob/main/SearchPage.png" /> |
 
-|                                            Admin - Create Flight                                            |                                            Admin - Booking List                                            |
-| :---------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------: |
-| <img width="460" alt="Admin 3" src="https://github.com/fazilmmmdzad/My-Files/blob/main/CreateFlight.png" /> | <img width="460" alt="Admin 4" src="https://github.com/fazilmmmdzad/My-Files/blob/main/BookingList.png" /> |
+| User - Flight Search | Admin - Flight List |
+| :------------------: | :-----------------: |
+| <img width="460" alt="Flight 3" src="https://github.com/fazilmemmedzade/My-Files/blob/main/FLightIndexSearch.png" /> | <img width="460" alt="Admin 1" src="https://github.com/fazilmmmdzad/My-Files/blob/main/FlightList.png" /> |
 
-|                                            Admin - Create Booking                                            |                                          Admin - Create Check-In (1)                                          |
-| :----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
-| <img width="460" alt="Admin 5" src="https://github.com/fazilmmmdzad/My-Files/blob/main/CreateBooking.png" /> | <img width="460" alt="Admin 6" src="https://github.com/fazilmmmdzad/My-Files/blob/main/CreateCheckIn1.png" /> |
+| Admin - Flight Detail | Admin - Create Flight |
+| :-------------------: | :-------------------: |
+| <img width="460" alt="Admin 2" src="https://github.com/fazilmmmdzad/My-Files/blob/main/FlightDetail.png" /> | <img width="460" alt="Admin 3" src="https://github.com/fazilmmmdzad/My-Files/blob/main/CreateFlight.png" /> |
 
-|                                          Admin - Create Check-In (2)                                          |                                          Admin - Create Check-In (3)                                          |
-| :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
-| <img width="460" alt="Admin 7" src="https://github.com/fazilmmmdzad/My-Files/blob/main/CreateCheckIn2.png" /> | <img width="460" alt="Admin 8" src="https://github.com/fazilmmmdzad/My-Files/blob/main/CreateCheckIn3.png" /> |
+| Admin - Booking List | Admin - Create Booking |
+| :------------------: | :--------------------: |
+| <img width="460" alt="Admin 4" src="https://github.com/fazilmmmdzad/My-Files/blob/main/BookingList.png" /> | <img width="460" alt="Admin 5" src="https://github.com/fazilmmmdzad/My-Files/blob/main/CreateBooking.png" /> |
 
-|                                          Admin - Create Check-In (4)                                          |                                           Admin - Create Check-In (5)                                          |
-| :-----------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------: |
-| <img width="460" alt="Admin 9" src="https://github.com/fazilmmmdzad/My-Files/blob/main/CreateCheckIn4.png" /> | <img width="460" alt="Admin 10" src="https://github.com/fazilmmmdzad/My-Files/blob/main/CreateCheckIn5.png" /> |
+| Admin - Create Check-In (1) | Admin - Create Check-In (2) |
+| :-------------------------: | :-------------------------: |
+| <img width="460" alt="Admin 6" src="https://github.com/fazilmmmdzad/My-Files/blob/main/CreateCheckIn1.png" /> | <img width="460" alt="Admin 7" src="https://github.com/fazilmmmdzad/My-Files/blob/main/CreateCheckIn2.png" /> |
 
-|                                           Admin - Over Booking Forecast (1)                                          |                                           Admin - Over Booking Forecast (2)                                          |
-| :------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------: |
-| <img width="460" alt="Admin 11" src="https://github.com/fazilmmmdzad/My-Files/blob/main/OverBookingForecast1.png" /> | <img width="460" alt="Admin 12" src="https://github.com/fazilmmmdzad/My-Files/blob/main/OverBookingForecast2.png" /> |
+| Admin - Create Check-In (3) | Admin - Create Check-In (4) |
+| :-------------------------: | :-------------------------: |
+| <img width="460" alt="Admin 8" src="https://github.com/fazilmmmdzad/My-Files/blob/main/CreateCheckIn3.png" /> | <img width="460" alt="Admin 9" src="https://github.com/fazilmmmdzad/My-Files/blob/main/CreateCheckIn4.png" /> |
 
-|                                           Admin - Over Booking (1)                                           |                                           Admin - Over Booking (2)                                           |
-| :----------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------: |
-| <img width="460" alt="Admin 13" src="https://github.com/fazilmmmdzad/My-Files/blob/main/OverBooking1.png" /> | <img width="460" alt="Admin 14" src="https://github.com/fazilmmmdzad/My-Files/blob/main/OverBooking2.png" /> |
+| Admin - Create Check-In (5) | Admin - Over Booking Forecast (1) |
+| :-------------------------: | :-------------------------------: |
+| <img width="460" alt="Admin 10" src="https://github.com/fazilmmmdzad/My-Files/blob/main/CreateCheckIn5.png" /> | <img width="460" alt="Admin 11" src="https://github.com/fazilmmmdzad/My-Files/blob/main/OverBookingForecast1.png" /> |
 
-|                                           Admin - Over Booking (3)                                           |                                             Admin - Predict                                             |
-| :----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: |
-| <img width="460" alt="Admin 15" src="https://github.com/fazilmmmdzad/My-Files/blob/main/OverBooking3.png" /> | <img width="460" alt="Admin 16" src="https://github.com/fazilmmmdzad/My-Files/blob/main/Predict.png" /> |
+| Admin - Over Booking Forecast (2) | Admin - Over Booking (1) |
+| :-------------------------------: | :----------------------: |
+| <img width="460" alt="Admin 12" src="https://github.com/fazilmmmdzad/My-Files/blob/main/OverBookingForecast2.png" /> | <img width="460" alt="Admin 13" src="https://github.com/fazilmmmdzad/My-Files/blob/main/OverBooking1.png" /> |
 
-|                                            Admin - No Show Analysis                                            |                                            Admin - January 2027 Forecast                                            |
-| :------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------: |
-| <img width="460" alt="Admin 17" src="https://github.com/fazilmmmdzad/My-Files/blob/main/NoShowAnalysis.png" /> | <img width="460" alt="Admin 18" src="https://github.com/fazilmmmdzad/My-Files/blob/main/January2027Forecast.png" /> |
+| Admin - Over Booking (2) | Admin - Over Booking (3) |
+| :----------------------: | :----------------------: |
+| <img width="460" alt="Admin 14" src="https://github.com/fazilmmmdzad/My-Files/blob/main/OverBooking2.png" /> | <img width="460" alt="Admin 15" src="https://github.com/fazilmmmdzad/My-Files/blob/main/OverBooking3.png" /> |
 
-|                                              Admin - Agent (1)                                             |                                              Admin - Agent (2)                                             |
-| :--------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------: |
-| <img width="460" alt="Admin 19" src="https://github.com/fazilmmmdzad/My-Files/blob/main/AgentPage1.png" /> | <img width="460" alt="Admin 20" src="https://github.com/fazilmmmdzad/My-Files/blob/main/AgentPage2.png" /> |
+| Admin - Predict | Admin - No Show Analysis |
+| :-------------: | :----------------------: |
+| <img width="460" alt="Admin 16" src="https://github.com/fazilmmmdzad/My-Files/blob/main/Predict.png" /> | <img width="460" alt="Admin 17" src="https://github.com/fazilmmmdzad/My-Files/blob/main/NoShowAnalysis.png" /> |
 
-|                                              Admin - Agent (3)                                             |
-| :--------------------------------------------------------------------------------------------------------: |
-| <img width="920" alt="Admin 21" src="https://github.com/fazilmmmdzad/My-Files/blob/main/AgentPage3.png" /> |
+| Admin - January 2027 Forecast | User - Agent (1) |
+| :---------------------------: | :---------------: |
+| <img width="460" alt="Admin 18" src="https://github.com/fazilmmmdzad/My-Files/blob/main/January2027Forecast.png" /> | <img width="460" alt="Admin 19" src="https://github.com/fazilmmmdzad/My-Files/blob/main/AgentPage1.png" /> |
+
+| User - Agent (2) | User - Agent (3) |
+| :---------------: | :---------------: |
+| <img width="460" alt="Admin 20" src="https://github.com/fazilmmmdzad/My-Files/blob/main/AgentPage2.png" /> | <img width="460" alt="Admin 21" src="https://github.com/fazilmmmdzad/My-Files/blob/main/AgentPage3.png" /> |
+
+
+
