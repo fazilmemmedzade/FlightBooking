@@ -3,77 +3,1296 @@
 }
 
 <!DOCTYPE html>
-<html lang="tr">
+
+<html lang="az">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="SkyRoute ile yüzlerce havayolunun uçuşlarını karşılaştır, sana en uygun yolculuğu kolayca bul.">
-    <title>SkyRoute — Uçuş Ara, Karşılaştır, Uç</title>
+    <meta name="description" content="SkyRoute ilə yüzlərlə aviaşirkətin uçuşlarını müqayisə et, sənin üçün ən uyğun səyahəti asanlıqla tap.">
+    <title>SkyRoute — Uçuş axtar, müqayisə et, uç</title>
 
-    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <!-- Google Fonts: Inter -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
-    <!-- Özel stiller -->
-    <link href="/css/style.css" rel="stylesheet">
-</head>
-<body>
 
-    <!-- =========================================================
-         1. HEADER VE NAVİGASYON
-    ========================================================== -->
+    <style>
+        :root {
+            --sr-navy: #0f2f52;
+            --sr-blue: #1668c9;
+            --sr-blue-dark: #114f9c;
+            --sr-sky: #4aa3e8;
+            --sr-sky-soft: #e8f2fc;
+            --sr-teal: #17b3a3;
+            --sr-amber: #f5a623;
+            --sr-ink: #24313f;
+            --sr-muted: #6b7a8c;
+            --sr-line: #e2e8f0;
+            --sr-bg: #ffffff;
+            --sr-bg-alt: #f4f7fb;
+            --sr-radius: 10px;
+            --sr-radius-sm: 8px;
+            --sr-shadow: 0 10px 30px rgba(15, 47, 82, .10);
+            --sr-shadow-sm: 0 4px 14px rgba(15, 47, 82, .08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: var(--sr-ink);
+            background: var(--sr-bg);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        .sr-logo-text {
+            font-family: 'Sora', 'Inter', sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+            a:focus-visible,
+            button:focus-visible,
+            input:focus-visible,
+            select:focus-visible,
+            .btn:focus-visible {
+                outline: 3px solid rgba(22, 104, 201, .45);
+                outline-offset: 2px;
+            }
+
+        .sr-navbar {
+            background: transparent;
+            padding: .9rem 0;
+            transition: background-color .3s ease, box-shadow .3s ease, padding .3s ease;
+        }
+
+            .sr-navbar.sr-scrolled {
+                background: #ffffff;
+                box-shadow: 0 4px 20px rgba(15, 47, 82, .10);
+                padding: .55rem 0;
+            }
+
+        .sr-logo-mark {
+            width: 38px;
+            height: 38px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--sr-blue), var(--sr-sky));
+            color: #fff;
+            border-radius: var(--sr-radius-sm);
+            font-size: 1.05rem;
+            transform: rotate(-8deg);
+        }
+
+        .sr-logo-text {
+            font-weight: 800;
+            font-size: 1.35rem;
+            color: #fff;
+            letter-spacing: -.5px;
+        }
+
+        .sr-logo-accent {
+            color: var(--sr-sky);
+        }
+
+        .sr-navbar.sr-scrolled .sr-logo-text {
+            color: var(--sr-navy);
+        }
+
+        .sr-navbar.sr-scrolled .nav-link {
+            color: var(--sr-ink);
+        }
+
+        .sr-navbar.sr-scrolled .navbar-toggler {
+            color: var(--sr-navy);
+        }
+
+        .sr-navbar .nav-link {
+            color: rgba(255, 255, 255, .92);
+            font-weight: 500;
+            font-size: .95rem;
+            padding: .5rem .9rem;
+            border-radius: 6px;
+            transition: color .2s, background-color .2s;
+        }
+
+            .sr-navbar .nav-link:hover,
+            .sr-navbar .nav-link.active {
+                color: var(--sr-sky);
+            }
+
+        .sr-navbar.sr-scrolled .nav-link:hover,
+        .sr-navbar.sr-scrolled .nav-link.active {
+            color: var(--sr-blue);
+        }
+
+        .navbar-toggler {
+            border: none;
+            color: #fff;
+            font-size: 1.6rem;
+            padding: 0 .25rem;
+        }
+
+            .navbar-toggler:focus {
+                box-shadow: none;
+            }
+
+        .sr-mini-select {
+            width: auto;
+            min-width: 74px;
+            border-radius: 6px;
+            font-weight: 500;
+            border-color: rgba(255, 255, 255, .35);
+            background-color: rgba(255, 255, 255, .12);
+            color: #fff;
+        }
+
+            .sr-mini-select option {
+                color: #24313f;
+            }
+
+        .sr-navbar.sr-scrolled .sr-mini-select {
+            border-color: var(--sr-line);
+            background-color: #fff;
+            color: var(--sr-ink);
+        }
+
+        .btn-sr-login {
+            background: var(--sr-teal);
+            color: #fff;
+            font-weight: 600;
+            border-radius: 6px;
+            padding: .45rem 1.1rem;
+            white-space: nowrap;
+            transition: background-color .2s, transform .15s;
+        }
+
+            .btn-sr-login:hover {
+                background: #12a08f;
+                color: #fff;
+                transform: translateY(-1px);
+            }
+
+        .sr-hero {
+            position: relative;
+        }
+
+        #heroSlider,
+        .carousel-inner {
+            height: 560px;
+        }
+
+        .sr-slide {
+            position: relative;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+        }
+
+        .sr-slide-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient( 100deg, rgba(11, 34, 60, .78) 0%, rgba(11, 34, 60, .45) 45%, rgba(11, 34, 60, .15) 100% );
+        }
+
+        .sr-slide-content {
+            position: relative;
+            z-index: 2;
+            color: #fff;
+            max-width: 620px;
+            padding-bottom: 3rem;
+        }
+
+        .sr-eyebrow {
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: .78rem;
+            font-weight: 600;
+            color: var(--sr-sky);
+            margin-bottom: .75rem;
+        }
+
+        .sr-slide-title {
+            font-size: 2.9rem;
+            font-weight: 800;
+            line-height: 1.12;
+            margin-bottom: 1rem;
+            letter-spacing: -.5px;
+        }
+
+        .sr-slide-desc {
+            font-size: 1.15rem;
+            color: rgba(255, 255, 255, .9);
+            max-width: 540px;
+        }
+
+        .sr-control {
+            width: 5%;
+            opacity: 1;
+        }
+
+        .sr-control-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .18);
+            backdrop-filter: blur(4px);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.3rem;
+            transition: background-color .2s;
+        }
+
+        .sr-control:hover .sr-control-icon {
+            background: rgba(255, 255, 255, .35);
+        }
+
+        .sr-indicators {
+            margin-bottom: 1.5rem;
+        }
+
+            .sr-indicators [data-bs-target] {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                border: none;
+                background: rgba(255, 255, 255, .55);
+                opacity: 1;
+                transition: width .3s, background-color .3s;
+            }
+
+            .sr-indicators .active {
+                width: 26px;
+                border-radius: 6px;
+                background: #fff;
+            }
+
+        .sr-search-panel {
+            position: relative;
+            margin-top: -90px;
+            margin-bottom: 1rem;
+            background: #fff;
+            border-radius: var(--sr-radius);
+            box-shadow: var(--sr-shadow);
+            padding: 1.5rem;
+            z-index: 5;
+            border: 1px solid var(--sr-line);
+        }
+
+        .sr-trip-types {
+            display: inline-flex;
+            gap: .4rem;
+            margin-bottom: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .sr-trip-btn {
+            cursor: pointer;
+            padding: .5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: .9rem;
+            color: var(--sr-muted);
+            background: var(--sr-bg-alt);
+            border: 1px solid transparent;
+            transition: all .18s;
+            margin: 0;
+        }
+
+        .btn-check:checked + .sr-trip-btn {
+            color: var(--sr-blue);
+            background: var(--sr-sky-soft);
+            border-color: rgba(22, 104, 201, .4);
+        }
+
+        .sr-trip-btn:hover {
+            color: var(--sr-blue);
+        }
+
+        .sr-field-wrap {
+            position: relative;
+        }
+
+        .sr-label {
+            display: block;
+            font-size: .78rem;
+            font-weight: 600;
+            color: var(--sr-muted);
+            margin-bottom: .35rem;
+            text-transform: uppercase;
+            letter-spacing: .4px;
+        }
+
+        .sr-input-icon {
+            position: relative;
+        }
+
+            .sr-input-icon > i {
+                position: absolute;
+                left: .85rem;
+                top: 50%;
+                transform: translateY(-50%);
+                color: var(--sr-sky);
+                font-size: 1.05rem;
+                pointer-events: none;
+                z-index: 2;
+            }
+
+        .sr-input {
+            height: 52px;
+            border-radius: var(--sr-radius-sm);
+            border: 1px solid var(--sr-line);
+            background: #fff;
+            font-size: .95rem;
+            font-weight: 500;
+            color: var(--sr-ink);
+            padding-left: 2.6rem;
+            transition: border-color .2s, box-shadow .2s;
+        }
+
+            .sr-input:focus {
+                border-color: var(--sr-blue);
+                box-shadow: 0 0 0 3px rgba(22, 104, 201, .12);
+            }
+
+            .sr-input::placeholder {
+                color: #9aa7b6;
+                font-weight: 400;
+            }
+
+        .sr-swap-row {
+            --swap-size: 40px;
+        }
+
+        .sr-swap-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -20%);
+            width: var(--swap-size);
+            height: var(--swap-size);
+            border-radius: 50%;
+            border: 2px solid var(--sr-line);
+            background: #fff;
+            color: var(--sr-blue);
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 4;
+            box-shadow: var(--sr-shadow-sm);
+            transition: transform .3s, background-color .2s, color .2s;
+        }
+
+            .sr-swap-btn:hover {
+                background: var(--sr-blue);
+                color: #fff;
+            }
+
+            .sr-swap-btn.sr-rotate {
+                transform: translate(-50%, -20%) rotate(180deg);
+            }
+
+        .sr-passenger-menu {
+            min-width: 300px;
+            border: 1px solid var(--sr-line);
+            box-shadow: var(--sr-shadow);
+            border-radius: var(--sr-radius);
+        }
+
+        .sr-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+            .sr-dropdown-toggle::after {
+                display: none;
+            }
+
+        .sr-pax-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: .55rem 0;
+        }
+
+        .sr-pax-title {
+            font-weight: 600;
+            color: var(--sr-navy);
+            font-size: .95rem;
+        }
+
+        .sr-pax-sub {
+            font-size: .78rem;
+            color: var(--sr-muted);
+        }
+
+        .sr-pax-note {
+            font-size: .78rem;
+            color: var(--sr-amber);
+            font-weight: 500;
+            min-height: 1rem;
+        }
+
+        .sr-stepper {
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+        }
+
+        .sr-step-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1.5px solid var(--sr-line);
+            background: #fff;
+            color: var(--sr-blue);
+            font-size: 1.15rem;
+            font-weight: 600;
+            line-height: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .15s;
+        }
+
+            .sr-step-btn:hover:not(:disabled) {
+                border-color: var(--sr-blue);
+                background: var(--sr-sky-soft);
+            }
+
+            .sr-step-btn:disabled {
+                opacity: .4;
+                cursor: not-allowed;
+            }
+
+        .sr-step-value {
+            min-width: 20px;
+            text-align: center;
+            font-weight: 700;
+            color: var(--sr-navy);
+        }
+
+        .sr-error {
+            color: #d33a3a;
+            font-size: .78rem;
+            margin-top: .3rem;
+            min-height: 1rem;
+            font-weight: 500;
+        }
+
+        .sr-input.is-invalid {
+            border-color: #d33a3a;
+        }
+
+        .btn-sr-primary {
+            background: var(--sr-blue);
+            color: #fff;
+            font-weight: 600;
+            border-radius: var(--sr-radius-sm);
+            padding: .7rem 1.4rem;
+            border: none;
+            transition: background-color .2s, transform .15s;
+        }
+
+            .btn-sr-primary:hover {
+                background: var(--sr-blue-dark);
+                color: #fff;
+                transform: translateY(-1px);
+            }
+
+        .btn-sr-search {
+            height: 52px;
+            background: var(--sr-blue);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.02rem;
+            border: none;
+            border-radius: var(--sr-radius-sm);
+            transition: background-color .2s, transform .15s;
+        }
+
+            .btn-sr-search:hover {
+                background: var(--sr-blue-dark);
+                color: #fff;
+                transform: translateY(-1px);
+            }
+
+            .btn-sr-search:disabled {
+                opacity: .85;
+            }
+
+        .sr-section {
+            padding: 4.5rem 0;
+        }
+
+        .sr-section-alt {
+            background: var(--sr-bg-alt);
+        }
+
+        .sr-section-head {
+            text-align: center;
+            max-width: 640px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .sr-section-eyebrow {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: .78rem;
+            font-weight: 700;
+            color: var(--sr-blue);
+            margin-bottom: .5rem;
+        }
+
+        .sr-eyebrow-light {
+            color: var(--sr-sky);
+        }
+
+        .sr-section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--sr-navy);
+            letter-spacing: -.5px;
+        }
+
+        .sr-section-sub {
+            color: var(--sr-muted);
+            font-size: 1.05rem;
+            margin-top: .5rem;
+        }
+
+        .sr-route-card {
+            background: #fff;
+            border: 1px solid var(--sr-line);
+            border-radius: var(--sr-radius);
+            overflow: hidden;
+            height: 100%;
+            box-shadow: var(--sr-shadow-sm);
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+            .sr-route-card:hover {
+                transform: translateY(-5px);
+                box-shadow: var(--sr-shadow);
+            }
+
+        .sr-route-media {
+            height: 160px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+            .sr-route-media::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: linear-gradient( 180deg, rgba(15,47,82,0) 40%, rgba(15,47,82,.55) 100% );
+            }
+
+        .sr-route-duration {
+            position: absolute;
+            bottom: .7rem;
+            left: .8rem;
+            z-index: 2;
+            color: #fff;
+            font-size: .82rem;
+            font-weight: 500;
+        }
+
+            .sr-route-duration i {
+                margin-right: .3rem;
+            }
+
+        .sr-route-body {
+            padding: 1.1rem 1.15rem 1.25rem;
+        }
+
+        .sr-route-path {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: .35rem;
+        }
+
+        .sr-route-point {
+            text-align: center;
+        }
+
+        .sr-route-city {
+            font-weight: 700;
+            color: var(--sr-navy);
+            font-size: 1rem;
+            line-height: 1.1;
+        }
+
+        .sr-route-arrow {
+            color: var(--sr-sky);
+            font-size: 1.2rem;
+        }
+
+        .sr-route-price {
+            font-size: .85rem;
+            color: var(--sr-muted);
+            margin: .5rem 0 .9rem;
+        }
+
+        .btn-sr-outline {
+            width: 100%;
+            border: 1.5px solid var(--sr-blue);
+            color: var(--sr-blue);
+            background: #fff;
+            font-weight: 600;
+            border-radius: var(--sr-radius-sm);
+            padding: .55rem;
+            transition: all .18s;
+        }
+
+            .btn-sr-outline:hover {
+                background: var(--sr-blue);
+                color: #fff;
+            }
+
+        .sr-feature {
+            background: #fff;
+            border: 1px solid var(--sr-line);
+            border-radius: var(--sr-radius);
+            padding: 1.75rem 1.5rem;
+            height: 100%;
+            transition: transform .2s, box-shadow .2s;
+        }
+
+            .sr-feature:hover {
+                transform: translateY(-4px);
+                box-shadow: var(--sr-shadow);
+            }
+
+        .sr-feature-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: var(--sr-radius-sm);
+            background: var(--sr-sky-soft);
+            color: var(--sr-blue);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .sr-feature-title {
+            font-size: 1.08rem;
+            font-weight: 700;
+            color: var(--sr-navy);
+            margin-bottom: .5rem;
+        }
+
+        .sr-feature-text {
+            font-size: .92rem;
+            color: var(--sr-muted);
+            margin: 0;
+            line-height: 1.55;
+        }
+
+        .sr-campaign {
+            background: #fff;
+            border: 1px solid var(--sr-line);
+            border-radius: var(--sr-radius);
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            box-shadow: var(--sr-shadow-sm);
+            transition: transform .2s, box-shadow .2s;
+        }
+
+            .sr-campaign:hover {
+                transform: translateY(-4px);
+                box-shadow: var(--sr-shadow);
+            }
+
+        .sr-campaign-media {
+            flex: 0 0 40%;
+            min-height: 150px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .sr-campaign-badge {
+            position: absolute;
+            top: .7rem;
+            left: .7rem;
+            background: var(--sr-blue);
+            color: #fff;
+            font-weight: 800;
+            font-size: .85rem;
+            padding: .3rem .6rem;
+            border-radius: 6px;
+        }
+
+        .sr-badge-amber {
+            background: var(--sr-amber);
+        }
+
+        .sr-badge-teal {
+            background: var(--sr-teal);
+        }
+
+        .sr-campaign-body {
+            padding: 1.1rem 1.2rem;
+            flex: 1;
+        }
+
+        .sr-campaign-date {
+            font-size: .78rem;
+            color: var(--sr-sky);
+            font-weight: 600;
+            display: block;
+            margin-bottom: .4rem;
+        }
+
+        .sr-campaign-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--sr-navy);
+            margin-bottom: .4rem;
+        }
+
+        .sr-campaign-text {
+            font-size: .88rem;
+            color: var(--sr-muted);
+            margin-bottom: .7rem;
+            line-height: 1.5;
+        }
+
+        .sr-campaign-link {
+            font-weight: 600;
+            color: var(--sr-blue);
+            font-size: .9rem;
+        }
+
+            .sr-campaign-link i {
+                transition: transform .2s;
+            }
+
+            .sr-campaign-link:hover i {
+                transform: translateX(4px);
+            }
+
+        .sr-flex-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--sr-navy);
+            letter-spacing: -.5px;
+            margin-bottom: 1rem;
+        }
+
+        .sr-flex-text {
+            color: var(--sr-muted);
+            font-size: 1.05rem;
+            margin-bottom: 1.25rem;
+            line-height: 1.6;
+        }
+
+        .sr-flex-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.5rem;
+        }
+
+            .sr-flex-list li {
+                display: flex;
+                align-items: center;
+                gap: .6rem;
+                padding: .35rem 0;
+                font-weight: 500;
+                color: var(--sr-ink);
+            }
+
+            .sr-flex-list i {
+                color: var(--sr-teal);
+                font-size: 1.1rem;
+            }
+
+        .sr-flex-media {
+            border-radius: var(--sr-radius);
+            overflow: hidden;
+            box-shadow: var(--sr-shadow);
+        }
+
+            .sr-flex-media img {
+                width: 100%;
+                height: 380px;
+                object-fit: cover;
+                display: block;
+            }
+
+        .sr-app {
+            background: linear-gradient( 120deg, var(--sr-navy) 0%, var(--sr-blue-dark) 100% );
+            color: #fff;
+            padding: 4rem 0;
+            overflow: hidden;
+        }
+
+        .sr-app-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: .75rem;
+        }
+
+        .sr-app-text {
+            color: rgba(255, 255, 255, .85);
+            font-size: 1.08rem;
+            margin-bottom: 1.5rem;
+            max-width: 480px;
+        }
+
+        .sr-store-buttons {
+            display: flex;
+            gap: .8rem;
+            flex-wrap: wrap;
+        }
+
+        .sr-store-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            background: rgba(255, 255, 255, .1);
+            border: 1px solid rgba(255, 255, 255, .25);
+            color: #fff;
+            padding: .6rem 1.1rem;
+            border-radius: var(--sr-radius-sm);
+            transition: background-color .2s;
+        }
+
+            .sr-store-btn:hover {
+                background: rgba(255, 255, 255, .2);
+                color: #fff;
+            }
+
+            .sr-store-btn i {
+                font-size: 1.6rem;
+            }
+
+            .sr-store-btn span {
+                display: flex;
+                flex-direction: column;
+                line-height: 1.1;
+            }
+
+            .sr-store-btn small {
+                font-size: .68rem;
+                opacity: .8;
+            }
+
+            .sr-store-btn strong {
+                font-size: .98rem;
+            }
+
+        .sr-app-visual {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .sr-app-visual > i {
+                font-size: 9rem;
+                color: #fff;
+                position: relative;
+                z-index: 2;
+            }
+
+        .sr-app-glow {
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: radial-gradient( circle, rgba(74,163,232,.55), transparent 70% );
+            filter: blur(10px);
+        }
+
+        .sr-newsletter {
+            padding: 0 0 4.5rem;
+            background: var(--sr-bg);
+            margin-top: 4.5rem;
+        }
+
+        .sr-newsletter-card {
+            background: var(--sr-sky-soft);
+            border: 1px solid rgba(22, 104, 201, .15);
+            border-radius: var(--sr-radius);
+            padding: 2.25rem 2rem;
+        }
+
+        .sr-newsletter-title {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--sr-navy);
+            margin-bottom: .3rem;
+        }
+
+        .sr-newsletter-text {
+            color: var(--sr-muted);
+            margin: 0;
+        }
+
+        .sr-newsletter-fields {
+            display: flex;
+            gap: .6rem;
+        }
+
+            .sr-newsletter-fields .sr-input {
+                padding-left: 1rem;
+            }
+
+            .sr-newsletter-fields .btn {
+                white-space: nowrap;
+                height: 52px;
+            }
+
+        .sr-footer {
+            background: var(--sr-navy);
+            color: rgba(255, 255, 255, .78);
+            padding: 3.5rem 0 1.75rem;
+        }
+
+        .sr-footer-about {
+            font-size: .9rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, .7);
+            max-width: 340px;
+        }
+
+        .sr-social {
+            display: flex;
+            gap: .6rem;
+            margin-top: 1.2rem;
+        }
+
+            .sr-social a {
+                width: 38px;
+                height: 38px;
+                border-radius: 8px;
+                background: rgba(255, 255, 255, .1);
+                color: #fff;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.05rem;
+                transition: background-color .2s;
+            }
+
+                .sr-social a:hover {
+                    background: var(--sr-blue);
+                }
+
+        .sr-footer-head {
+            background: none;
+            border: none;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 0;
+            margin-bottom: 1rem;
+            width: 100%;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+
+        .sr-foot-chev {
+            display: none;
+            transition: transform .2s;
+        }
+
+        .sr-footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .sr-footer-links.collapse:not(.show) {
+                display: block;
+            }
+
+            .sr-footer-links li {
+                margin-bottom: .55rem;
+            }
+
+            .sr-footer-links a {
+                color: rgba(255, 255, 255, .72);
+                font-size: .9rem;
+                transition: color .2s;
+            }
+
+                .sr-footer-links a:hover {
+                    color: var(--sr-sky);
+                }
+
+        .sr-footer-divider {
+            border-color: rgba(255, 255, 255, .12);
+            margin: 2.5rem 0 1.25rem;
+        }
+
+        .sr-footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .sr-copyright {
+            font-size: .85rem;
+            color: rgba(255, 255, 255, .6);
+        }
+
+        .sr-payments {
+            display: flex;
+            gap: .7rem;
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, .55);
+        }
+
+        #srToast {
+            background: var(--sr-navy);
+            color: #fff;
+        }
+
+            #srToast.sr-toast-success {
+                background: var(--sr-teal);
+            }
+
+            #srToast.sr-toast-error {
+                background: #d33a3a;
+            }
+
+        @@media (max-width: 991.98px) {
+            #heroSlider,
+            .carousel-inner {
+                height: 480px;
+            }
+
+            .sr-slide-title {
+                font-size: 2.3rem;
+            }
+
+            .sr-search-panel {
+                margin-top: -60px;
+            }
+
+            .navbar-collapse {
+                background: #fff;
+                margin-top: .75rem;
+                border-radius: var(--sr-radius);
+                padding: 1rem;
+                box-shadow: var(--sr-shadow);
+            }
+
+            .sr-navbar .nav-link,
+            .sr-navbar .nav-link.active {
+                color: var(--sr-ink);
+            }
+
+            .sr-mini-select {
+                border-color: var(--sr-line);
+                background-color: #fff;
+                color: var(--sr-ink);
+            }
+        }
+
+        @@media (max-width: 767.98px) {
+            #heroSlider,
+            .carousel-inner {
+                height: 420px;
+            }
+
+            .sr-slide-content {
+                padding-bottom: 4.5rem;
+                text-align: left;
+            }
+
+            .sr-slide-title {
+                font-size: 1.7rem;
+            }
+
+            .sr-slide-desc {
+                font-size: 1rem;
+            }
+
+            .sr-search-panel {
+                margin-top: 1.25rem;
+                padding: 1.25rem;
+            }
+
+            .sr-section {
+                padding: 3rem 0;
+            }
+
+            .sr-section-title,
+            .sr-flex-title,
+            .sr-app-title {
+                font-size: 1.6rem;
+            }
+
+            .sr-campaign {
+                flex-direction: column;
+            }
+
+            .sr-campaign-media {
+                flex: none;
+                width: 100%;
+                height: 150px;
+            }
+
+            .sr-flex-media img {
+                height: 260px;
+            }
+
+            .sr-newsletter-fields {
+                flex-direction: column;
+            }
+
+                .sr-newsletter-fields .btn {
+                    width: 100%;
+                }
+
+            .sr-footer-head {
+                pointer-events: auto;
+            }
+
+            .sr-foot-chev {
+                display: inline-block;
+            }
+
+            .sr-footer-links.collapse:not(.show) {
+                display: none;
+            }
+
+            .sr-footer-col {
+                border-bottom: 1px solid rgba(255,255,255,.12);
+                padding-bottom: .9rem;
+                margin-bottom: .3rem;
+            }
+
+            .sr-footer-head[aria-expanded="true"] .sr-foot-chev {
+                transform: rotate(180deg);
+            }
+
+            .sr-footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @@media (max-width: 575.98px) {
+            .sr-app-visual > i {
+                font-size: 6.5rem;
+            }
+        }
+
+        @@media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: .001ms !important;
+                transition-duration: .001ms !important;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
     <header>
         <nav class="navbar navbar-expand-lg fixed-top sr-navbar" id="mainNavbar">
             <div class="container">
-                <!-- Logo -->
-                <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="/Flight/Index">
                     <span class="sr-logo-mark" aria-hidden="true">
                         <i class="bi bi-send-fill"></i>
                     </span>
-                    <span class="sr-logo-text">Sky<span class="sr-logo-accent">Route</span></span>
+
+                    <span class="sr-logo-text">
+                        Sky<span class="sr-logo-accent">Route</span>
+                    </span>
                 </a>
 
-                <!-- Mobil hamburger butonu -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
-                        aria-controls="mainNav" aria-expanded="false" aria-label="Menüyü aç/kapat">
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#mainNav"
+                        aria-controls="mainNav"
+                        aria-expanded="false"
+                        aria-label="Menyunu aç/bağla">
                     <i class="bi bi-list"></i>
                 </button>
 
-                <!-- Menü içeriği -->
                 <div class="collapse navbar-collapse" id="mainNav">
-                    <!-- Sol / orta menü bağlantıları -->
                     <ul class="navbar-nav mx-lg-auto mb-3 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" href="#aramaPaneli">Uçuş Ara</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#kampanyalar">Kampanyalar</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#populerRotalar">Popüler Rotalar</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#esnekSeyahat">Seyahat Rehberi</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#footer">Yardım</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#aramaPaneli">
+                                Uçuş axtar
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#kampanyalar">
+                                Kampaniyalar
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#populerRotalar">
+                                Populyar marşrutlar
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#esnekSeyahat">
+                                Səyahət bələdçisi
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#footer">
+                                Yardım
+                            </a>
+                        </li>
                     </ul>
 
-                    <!-- Sağ taraf: para birimi, dil, giriş -->
                     <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-2">
-                        <!-- Para birimi seçimi -->
-                        <select class="form-select form-select-sm sr-mini-select" id="navCurrency" aria-label="Para birimi seçimi">
-                            <option value="TRY" selected>TRY ₺</option>
-                            <option value="EUR">EUR €</option>
-                            <option value="USD">USD $</option>
-                            <option value="GBP">GBP £</option>
-                        </select>
-
-                        <!-- Dil seçimi -->
-                        <select class="form-select form-select-sm sr-mini-select" id="navLang" aria-label="Dil seçimi">
-                            <option value="tr" selected>TR</option>
+                        <select class="form-select form-select-sm sr-mini-select"
+                                id="navLang"
+                                aria-label="Dil seçimi">
+                            <option value="az" selected>AZ</option>
                             <option value="en">EN</option>
-                            <option value="de">DE</option>
+                            <option value="ru">RU</option>
                         </select>
 
-                        <!-- Giriş yap butonu -->
                         <a href="#" class="btn btn-sr-login btn-sm">
-                            <i class="bi bi-person-circle me-1"></i>Giriş Yap
+                            <i class="bi bi-person-circle me-1"></i>
+                            Daxil ol
                         </a>
                     </div>
                 </div>
@@ -81,564 +1300,1898 @@
         </nav>
     </header>
 
-    <!-- =========================================================
-         2. HERO SLIDER
-    ========================================================== -->
     <section class="sr-hero">
-        <div id="heroSlider" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="6000">
-            <!-- Gösterge noktaları -->
+
+        <div id="heroSlider"
+             class="carousel slide carousel-fade"
+             data-bs-ride="carousel"
+             data-bs-interval="6000">
+
             <div class="carousel-indicators sr-indicators">
-                <button type="button" data-bs-target="#heroSlider" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slayt 1"></button>
-                <button type="button" data-bs-target="#heroSlider" data-bs-slide-to="1" aria-label="Slayt 2"></button>
-                <button type="button" data-bs-target="#heroSlider" data-bs-slide-to="2" aria-label="Slayt 3"></button>
+                <button type="button"
+                        data-bs-target="#heroSlider"
+                        data-bs-slide-to="0"
+                        class="active"
+                        aria-current="true"
+                        aria-label="Slayd 1">
+                </button>
+
+                <button type="button"
+                        data-bs-target="#heroSlider"
+                        data-bs-slide-to="1"
+                        aria-label="Slayd 2">
+                </button>
+
+                <button type="button"
+                        data-bs-target="#heroSlider"
+                        data-bs-slide-to="2"
+                        aria-label="Slayd 3">
+                </button>
             </div>
 
-            <!-- Slaytlar -->
             <div class="carousel-inner h-100">
-                <!-- Slayt 1 -->
+
                 <div class="carousel-item active h-100">
-                    <div class="sr-slide" style="background-image:url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1920&q=80');">
+                    <div class="sr-slide"
+                         style="background-image:url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1920&q=80');">
+
                         <div class="sr-slide-overlay"></div>
+
                         <div class="container sr-slide-content">
-                            <p class="sr-eyebrow">SkyRoute ile keşfet</p>
-                            <h1 class="sr-slide-title">Yeni rotalar keşfetmeye hazır mısın?</h1>
-                            <p class="sr-slide-desc">Yüzlerce havayolunun uçuşlarını karşılaştır, sana en uygun yolculuğu kolayca bul.</p>
+                            <p class="sr-eyebrow">
+                                SkyRoute ilə kəşf et
+                            </p>
+
+                            <h1 class="sr-slide-title">
+                                Yeni marşrutları kəşf etməyə hazırsan?
+                            </h1>
+
+                            <p class="sr-slide-desc">
+                                Yüzlərlə aviaşirkətin uçuşlarını müqayisə et,
+                                sənin üçün ən uyğun səyahəti asanlıqla tap.
+                            </p>
                         </div>
                     </div>
                 </div>
-                <!-- Slayt 2 -->
+
                 <div class="carousel-item h-100">
-                    <div class="sr-slide" style="background-image:url('https://images.unsplash.com/photo-1503152394-c571994fd383?auto=format&fit=crop&w=1920&q=80');">
+                    <div class="sr-slide"
+                         style="background-image:url('https://images.unsplash.com/photo-1503152394-c571994fd383?auto=format&fit=crop&w=1920&q=80');">
+
                         <div class="sr-slide-overlay"></div>
+
                         <div class="container sr-slide-content">
-                            <p class="sr-eyebrow">Avrupa fırsatları</p>
-                            <h1 class="sr-slide-title">Avrupa uçuşlarında avantajlı fiyatlar</h1>
-                            <p class="sr-slide-desc">Amsterdam, Milano, Paris ve Roma uçuşlarını tek ekranda karşılaştır.</p>
+                            <p class="sr-eyebrow">
+                                Avropa fürsətləri
+                            </p>
+
+                            <h1 class="sr-slide-title">
+                                Avropa uçuşlarında sərfəli qiymətlər
+                            </h1>
+
+                            <p class="sr-slide-desc">
+                                Amsterdam, Milan, Paris və Roma uçuşlarını
+                                bir ekranda müqayisə et.
+                            </p>
                         </div>
                     </div>
                 </div>
-                <!-- Slayt 3 -->
+
                 <div class="carousel-item h-100">
-                    <div class="sr-slide" style="background-image:url('https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&fit=crop&w=1920&q=80');">
+                    <div class="sr-slide"
+                         style="background-image:url('https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&fit=crop&w=1920&q=80');">
+
                         <div class="sr-slide-overlay"></div>
+
                         <div class="container sr-slide-content">
-                            <p class="sr-eyebrow">Planlaman kolaylaşsın</p>
-                            <h1 class="sr-slide-title">Hayalindeki yolculuk birkaç adım uzağında</h1>
-                            <p class="sr-slide-desc">Esnek tarih seçenekleri ve gelişmiş filtrelerle seyahatini kolayca planla.</p>
+                            <p class="sr-eyebrow">
+                                Planlamanı asanlaşdır
+                            </p>
+
+                            <h1 class="sr-slide-title">
+                                Xəyalındakı səyahət bir neçə addım uzaqdadır
+                            </h1>
+
+                            <p class="sr-slide-desc">
+                                Çevik tarix seçimləri və inkişaf etmiş filtrlərlə
+                                səyahətini asanlıqla planla.
+                            </p>
                         </div>
                     </div>
                 </div>
+
             </div>
 
-            <!-- Kontrol butonları -->
-            <button class="carousel-control-prev sr-control" type="button" data-bs-target="#heroSlider" data-bs-slide="prev">
-                <span class="sr-control-icon"><i class="bi bi-chevron-left"></i></span>
-                <span class="visually-hidden">Önceki</span>
+            <button class="carousel-control-prev sr-control"
+                    type="button"
+                    data-bs-target="#heroSlider"
+                    data-bs-slide="prev">
+
+                <span class="sr-control-icon">
+                    <i class="bi bi-chevron-left"></i>
+                </span>
+
+                <span class="visually-hidden">
+                    Əvvəlki
+                </span>
             </button>
-            <button class="carousel-control-next sr-control" type="button" data-bs-target="#heroSlider" data-bs-slide="next">
-                <span class="sr-control-icon"><i class="bi bi-chevron-right"></i></span>
-                <span class="visually-hidden">Sonraki</span>
+
+            <button class="carousel-control-next sr-control"
+                    type="button"
+                    data-bs-target="#heroSlider"
+                    data-bs-slide="next">
+
+                <span class="sr-control-icon">
+                    <i class="bi bi-chevron-right"></i>
+                </span>
+
+                <span class="visually-hidden">
+                    Növbəti
+                </span>
             </button>
         </div>
 
-        <!-- =========================================================
-             3. UÇUŞ ARAMA PANELİ (slider üzerine bindirilmiş)
-        ========================================================== -->
         <div class="container">
+
             <div class="sr-search-panel" id="aramaPaneli">
-                <!-- Seyahat tipi sekmeleri -->
-                <div class="sr-trip-types" role="tablist" aria-label="Seyahat tipi">
-                    <input type="radio" class="btn-check" name="tripType" id="tripRound" value="round" checked>
-                    <label class="sr-trip-btn" for="tripRound"><i class="bi bi-arrow-left-right me-1"></i>Gidiş-Dönüş</label>
 
-                    <input type="radio" class="btn-check" name="tripType" id="tripOne" value="oneway">
-                    <label class="sr-trip-btn" for="tripOne"><i class="bi bi-arrow-right me-1"></i>Tek Yön</label>
+                <div class="sr-trip-types"
+                     role="tablist"
+                     aria-label="Səyahət növü">
 
-                    <input type="radio" class="btn-check" name="tripType" id="tripMulti" value="multi">
-                    <label class="sr-trip-btn" for="tripMulti"><i class="bi bi-diagram-3 me-1"></i>Çoklu Uçuş</label>
+                    <input type="radio"
+                           class="btn-check"
+                           name="tripType"
+                           id="tripRound"
+                           value="round"
+                           checked>
+
+                    <label class="sr-trip-btn" for="tripRound">
+                        <i class="bi bi-arrow-left-right me-1"></i>
+                        Gediş-dönüş
+                    </label>
+
+                    <input type="radio"
+                           class="btn-check"
+                           name="tripType"
+                           id="tripOne"
+                           value="oneway">
+
+                    <label class="sr-trip-btn" for="tripOne">
+                        <i class="bi bi-arrow-right me-1"></i>
+                        Tək istiqamət
+                    </label>
+
+                    <input type="radio"
+                           class="btn-check"
+                           name="tripType"
+                           id="tripMulti"
+                           value="multi">
+
+                    <label class="sr-trip-btn" for="tripMulti">
+                        <i class="bi bi-diagram-3 me-1"></i>
+                        Çoxlu uçuş
+                    </label>
                 </div>
 
-                <!-- Arama formu -->
                 <form id="flightSearchForm" novalidate>
+
                     <div class="row g-3 align-items-end">
 
-                        <!-- Kalkış + Varış (yön değiştirme butonlu) -->
                         <div class="col-12 col-lg-5">
+
                             <div class="row g-2 sr-swap-row position-relative">
-                                <!-- Kalkış -->
+
                                 <div class="col-6 sr-field-wrap">
-                                    <label class="sr-label" for="fromInput">Kalkış Noktası</label>
+
+                                    <label class="sr-label" for="fromInput">
+                                        Gediş nöqtəsi
+                                    </label>
+
                                     <div class="sr-input-icon">
                                         <i class="bi bi-airplane-engines"></i>
-                                        <input type="text" class="form-control sr-input" id="fromInput"
-                                               placeholder="Şehir, havalimanı veya IATA"
-                                               autocomplete="off" value="İstanbul, Türkiye" data-iata="IST">
+
+                                        <input type="text"
+                                               class="form-control sr-input"
+                                               id="fromInput"
+                                               placeholder="Şəhər adını yazın (məs. Bakı)"
+                                               autocomplete="off">
                                     </div>
-                                    <!-- Autocomplete sonuç listesi -->
-                                    <div class="sr-autocomplete" id="fromResults"></div>
+
                                     <div class="sr-error" id="fromError"></div>
                                 </div>
 
-                                <!-- Varış -->
                                 <div class="col-6 sr-field-wrap">
-                                    <label class="sr-label" for="toInput">Varış Noktası</label>
+
+                                    <label class="sr-label" for="toInput">
+                                        Təyinat nöqtəsi
+                                    </label>
+
                                     <div class="sr-input-icon">
                                         <i class="bi bi-geo-alt"></i>
-                                        <input type="text" class="form-control sr-input" id="toInput"
-                                               placeholder="Şehir, havalimanı veya IATA"
-                                               autocomplete="off" value="Amsterdam, Hollanda" data-iata="AMS">
+
+                                        <input type="text"
+                                               class="form-control sr-input"
+                                               id="toInput"
+                                               placeholder="Şəhər adını yazın (məs. Amsterdam)"
+                                               autocomplete="off">
                                     </div>
-                                    <div class="sr-autocomplete" id="toResults"></div>
+
                                     <div class="sr-error" id="toError"></div>
                                 </div>
 
-                                <!-- Yön değiştirme butonu -->
-                                <button type="button" class="sr-swap-btn" id="swapBtn" aria-label="Kalkış ve varışı değiştir" title="Yerlerini değiştir">
+                                <button type="button"
+                                        class="sr-swap-btn"
+                                        id="swapBtn"
+                                        aria-label="Gediş və təyinatı dəyişdir"
+                                        title="Yerləri dəyişdir">
+
                                     <i class="bi bi-arrow-left-right"></i>
                                 </button>
+
                             </div>
                         </div>
 
-                        <!-- Gidiş tarihi -->
                         <div class="col-6 col-lg-2 sr-field-wrap">
-                            <label class="sr-label" for="departDate">Gidiş Tarihi</label>
+
+                            <label class="sr-label" for="departDate">
+                                Gediş tarixi
+                            </label>
+
                             <div class="sr-input-icon">
                                 <i class="bi bi-calendar-event"></i>
-                                <input type="date" class="form-control sr-input" id="departDate">
+
+                                <input type="date"
+                                       class="form-control sr-input"
+                                       id="departDate">
                             </div>
+
                             <div class="sr-error" id="departError"></div>
                         </div>
 
-                        <!-- Dönüş tarihi -->
-                        <div class="col-6 col-lg-2 sr-field-wrap" id="returnWrap">
-                            <label class="sr-label" for="returnDate">Dönüş Tarihi</label>
+                        <div class="col-6 col-lg-2 sr-field-wrap"
+                             id="returnWrap">
+
+                            <label class="sr-label" for="returnDate">
+                                Dönüş tarixi
+                            </label>
+
                             <div class="sr-input-icon">
                                 <i class="bi bi-calendar-event"></i>
-                                <input type="date" class="form-control sr-input" id="returnDate">
+
+                                <input type="date"
+                                       class="form-control sr-input"
+                                       id="returnDate">
                             </div>
+
                             <div class="sr-error" id="returnError"></div>
                         </div>
 
-                        <!-- Yolcu + kabin (dropdown) -->
                         <div class="col-12 col-lg-3 sr-field-wrap">
-                            <label class="sr-label" for="passengerToggle">Yolcu ve Kabin</label>
+
+                            <label class="sr-label" for="passengerToggle">
+                                Sərnişin və kabin
+                            </label>
+
                             <div class="dropdown">
-                                <button class="form-control sr-input sr-dropdown-toggle text-start" type="button"
-                                        id="passengerToggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+
+                                <button class="form-control sr-input sr-dropdown-toggle text-start"
+                                        type="button"
+                                        id="passengerToggle"
+                                        data-bs-toggle="dropdown"
+                                        data-bs-auto-close="outside"
+                                        aria-expanded="false">
+
                                     <i class="bi bi-people me-1"></i>
-                                    <span id="passengerSummary">1 Yolcu</span>
-                                    <span class="text-muted">· <span id="cabinSummary">Ekonomi</span></span>
+
+                                    <span id="passengerSummary">
+                                        1 sərnişin
+                                    </span>
+
+                                    <span class="text-muted">
+                                        ·
+                                        <span id="cabinSummary">
+                                            Ekonom
+                                        </span>
+                                    </span>
                                 </button>
 
                                 <div class="dropdown-menu sr-passenger-menu p-3">
-                                    <!-- Yetişkin -->
+
                                     <div class="sr-pax-row">
+
                                         <div>
-                                            <div class="sr-pax-title">Yetişkin</div>
-                                            <div class="sr-pax-sub">12 yaş ve üzeri</div>
+                                            <div class="sr-pax-title">
+                                                Böyük
+                                            </div>
+
+                                            <div class="sr-pax-sub">
+                                                12 yaş və yuxarı
+                                            </div>
                                         </div>
+
                                         <div class="sr-stepper">
-                                            <button type="button" class="sr-step-btn" data-type="adult" data-action="dec" aria-label="Yetişkin azalt">−</button>
-                                            <span class="sr-step-value" id="adultCount">1</span>
-                                            <button type="button" class="sr-step-btn" data-type="adult" data-action="inc" aria-label="Yetişkin artır">+</button>
-                                        </div>
-                                    </div>
-                                    <!-- Çocuk -->
-                                    <div class="sr-pax-row">
-                                        <div>
-                                            <div class="sr-pax-title">Çocuk</div>
-                                            <div class="sr-pax-sub">2–11 yaş</div>
-                                        </div>
-                                        <div class="sr-stepper">
-                                            <button type="button" class="sr-step-btn" data-type="child" data-action="dec" aria-label="Çocuk azalt">−</button>
-                                            <span class="sr-step-value" id="childCount">0</span>
-                                            <button type="button" class="sr-step-btn" data-type="child" data-action="inc" aria-label="Çocuk artır">+</button>
-                                        </div>
-                                    </div>
-                                    <!-- Bebek -->
-                                    <div class="sr-pax-row">
-                                        <div>
-                                            <div class="sr-pax-title">Bebek</div>
-                                            <div class="sr-pax-sub">0–2 yaş</div>
-                                        </div>
-                                        <div class="sr-stepper">
-                                            <button type="button" class="sr-step-btn" data-type="infant" data-action="dec" aria-label="Bebek azalt">−</button>
-                                            <span class="sr-step-value" id="infantCount">0</span>
-                                            <button type="button" class="sr-step-btn" data-type="infant" data-action="inc" aria-label="Bebek artır">+</button>
+
+                                            <button type="button"
+                                                    class="sr-step-btn"
+                                                    data-type="adult"
+                                                    data-action="dec"
+                                                    aria-label="Böyük sayını azalt">
+                                                −
+                                            </button>
+
+                                            <span class="sr-step-value"
+                                                  id="adultCount">
+                                                1
+                                            </span>
+
+                                            <button type="button"
+                                                    class="sr-step-btn"
+                                                    data-type="adult"
+                                                    data-action="inc"
+                                                    aria-label="Böyük sayını artır">
+                                                +
+                                            </button>
+
                                         </div>
                                     </div>
 
-                                    <div class="sr-pax-note" id="paxNote"></div>
+                                    <div class="sr-pax-row">
+
+                                        <div>
+                                            <div class="sr-pax-title">
+                                                Uşaq
+                                            </div>
+
+                                            <div class="sr-pax-sub">
+                                                2–11 yaş
+                                            </div>
+                                        </div>
+
+                                        <div class="sr-stepper">
+
+                                            <button type="button"
+                                                    class="sr-step-btn"
+                                                    data-type="child"
+                                                    data-action="dec"
+                                                    aria-label="Uşaq sayını azalt">
+                                                −
+                                            </button>
+
+                                            <span class="sr-step-value"
+                                                  id="childCount">
+                                                0
+                                            </span>
+
+                                            <button type="button"
+                                                    class="sr-step-btn"
+                                                    data-type="child"
+                                                    data-action="inc"
+                                                    aria-label="Uşaq sayını artır">
+                                                +
+                                            </button>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="sr-pax-row">
+
+                                        <div>
+                                            <div class="sr-pax-title">
+                                                Körpə
+                                            </div>
+
+                                            <div class="sr-pax-sub">
+                                                0–2 yaş
+                                            </div>
+                                        </div>
+
+                                        <div class="sr-stepper">
+
+                                            <button type="button"
+                                                    class="sr-step-btn"
+                                                    data-type="infant"
+                                                    data-action="dec"
+                                                    aria-label="Körpə sayını azalt">
+                                                −
+                                            </button>
+
+                                            <span class="sr-step-value"
+                                                  id="infantCount">
+                                                0
+                                            </span>
+
+                                            <button type="button"
+                                                    class="sr-step-btn"
+                                                    data-type="infant"
+                                                    data-action="inc"
+                                                    aria-label="Körpə sayını artır">
+                                                +
+                                            </button>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="sr-pax-note"
+                                         id="paxNote">
+                                    </div>
 
                                     <hr class="my-2">
 
-                                    <!-- Kabin sınıfı -->
-                                    <label class="sr-label" for="cabinClass">Kabin Sınıfı</label>
-                                    <select class="form-select sr-input" id="cabinClass">
-                                        <option value="economy" selected>Ekonomi</option>
-                                        <option value="premium">Premium Ekonomi</option>
-                                        <option value="business">Business</option>
-                                        <option value="first">First Class</option>
+                                    <label class="sr-label"
+                                           for="cabinClass">
+                                        Kabin sinfi
+                                    </label>
+
+                                    <select class="form-select sr-input"
+                                            id="cabinClass">
+
+                                        <option value="economy" selected>
+                                            Ekonom
+                                        </option>
+
+                                        <option value="premium">
+                                            Premium ekonom
+                                        </option>
+
+                                        <option value="business">
+                                            Biznes
+                                        </option>
+
+                                        <option value="first">
+                                            Birinci sinif
+                                        </option>
                                     </select>
 
-                                    <button type="button" class="btn btn-sr-primary w-100 mt-3" id="paxDone">Tamam</button>
+                                    <button type="button"
+                                            class="btn btn-sr-primary w-100 mt-3"
+                                            id="paxDone">
+                                        Tamam
+                                    </button>
+
                                 </div>
                             </div>
                         </div>
 
-                    </div><!-- /row -->
-                    <!-- Alt satır: para birimi, direkt uçuş, arama butonu -->
+                    </div>
+
                     <div class="row g-3 align-items-end mt-1">
-                        <!-- Para birimi -->
-                        <div class="col-6 col-lg-3 sr-field-wrap">
-                            <label class="sr-label" for="currencySelect">Para Birimi</label>
-                            <div class="sr-input-icon">
-                                <i class="bi bi-cash-coin"></i>
-                                <select class="form-select sr-input" id="currencySelect">
-                                    <option value="TRY" selected>Türk Lirası – TRY</option>
-                                    <option value="EUR">Euro – EUR</option>
-                                    <option value="USD">Amerikan Doları – USD</option>
-                                    <option value="GBP">İngiliz Sterlini – GBP</option>
-                                </select>
-                            </div>
+
+                        <div class="col-12 col-lg-7">
                         </div>
 
-                        <!-- Direkt uçuş switch -->
-                        <div class="col-6 col-lg-4 sr-field-wrap">
-                            <div class="form-check form-switch sr-switch mt-lg-4">
-                                <input class="form-check-input" type="checkbox" role="switch" id="directOnly">
-                                <label class="form-check-label" for="directOnly">Yalnızca direkt uçuşlar</label>
-                            </div>
-                        </div>
-
-                        <!-- Uçuş ara butonu -->
                         <div class="col-12 col-lg-5">
-                            <button type="submit" class="btn btn-sr-search w-100" id="searchBtn">
+
+                            <button type="submit"
+                                    class="btn btn-sr-search w-100"
+                                    id="searchBtn">
+
                                 <span class="sr-btn-label">
-                                    <i class="bi bi-search me-2"></i>Uçuş Ara
+                                    <i class="bi bi-search me-2"></i>
+                                    Uçuş axtar
                                 </span>
+
                                 <span class="sr-btn-loading d-none">
-                                    <span class="spinner-border spinner-border-sm me-2"></span>Uygun uçuşlar aranıyor...
+                                    <span class="spinner-border spinner-border-sm me-2"></span>
+                                    Uyğun uçuşlar axtarılır...
                                 </span>
+
                             </button>
                         </div>
+
                     </div>
+
                 </form>
             </div>
         </div>
     </section>
 
-    <!-- =========================================================
-         4. POPÜLER UÇUŞ ROTALARI
-    ========================================================== -->
     <section class="sr-section" id="populerRotalar">
+
         <div class="container">
+
             <div class="sr-section-head">
-                <p class="sr-section-eyebrow">Sık tercih edilen</p>
-                <h2 class="sr-section-title">Popüler Uçuş Rotaları</h2>
-                <p class="sr-section-sub">Gezginlerin en çok arattığı rotalarda başlangıç fiyatlarını keşfet.</p>
+
+                <p class="sr-section-eyebrow">
+                    Tez-tez seçilən
+                </p>
+
+                <h2 class="sr-section-title">
+                    Populyar uçuş marşrutları
+                </h2>
+
+                <p class="sr-section-sub">
+                    Səyahətçilərin ən çox axtardığı marşrutlarda
+                    başlanğıc qiymətlərini kəşf et.
+                </p>
+
             </div>
 
-            <div class="row g-4 sr-routes-row">
-                <!-- Rota kartları JavaScript ile otomatik doldurulacak -->
-                <div class="col-12 col-sm-6 col-lg-4" id="routesContainer"></div>
-            </div>
+            <div class="row g-4 sr-routes-row"></div>
+
         </div>
     </section>
 
-    <!-- =========================================================
-         5. AVANTAJLAR BÖLÜMÜ
-    ========================================================== -->
     <section class="sr-section sr-section-alt" id="avantajlar">
+
         <div class="container">
+
             <div class="sr-section-head">
-                <p class="sr-section-eyebrow">Farkımız</p>
-                <h2 class="sr-section-title">Bizi Neden Tercih Etmelisiniz?</h2>
+
+                <p class="sr-section-eyebrow">
+                    Fərqimiz
+                </p>
+
+                <h2 class="sr-section-title">
+                    Niyə bizi seçməlisiniz?
+                </h2>
+
             </div>
 
             <div class="row g-4">
+
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="sr-feature">
-                        <span class="sr-feature-icon"><i class="bi bi-bar-chart-line"></i></span>
-                        <h3 class="sr-feature-title">Yüzlerce Havayolunu Karşılaştır</h3>
-                        <p class="sr-feature-text">Tek aramayla onlarca havayolunu yan yana getir, en uygun seçeneği kolayca gör.</p>
+
+                        <span class="sr-feature-icon">
+                            <i class="bi bi-bar-chart-line"></i>
+                        </span>
+
+                        <h3 class="sr-feature-title">
+                            Yüzlərlə aviaşirkəti müqayisə et
+                        </h3>
+
+                        <p class="sr-feature-text">
+                            Tək axtarışla onlarla aviaşirkəti yan-yana gətir,
+                            ən uyğun seçimi asanlıqla gör.
+                        </p>
+
                     </div>
                 </div>
+
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="sr-feature">
-                        <span class="sr-feature-icon"><i class="bi bi-shield-check"></i></span>
-                        <h3 class="sr-feature-title">Güvenli ve Hızlı Arama</h3>
-                        <p class="sr-feature-text">Verilerin korunur, arama sonuçların saniyeler içinde önüne gelir.</p>
+
+                        <span class="sr-feature-icon">
+                            <i class="bi bi-shield-check"></i>
+                        </span>
+
+                        <h3 class="sr-feature-title">
+                            Təhlükəsiz və sürətli axtarış
+                        </h3>
+
+                        <p class="sr-feature-text">
+                            Məlumatların qorunur, axtarış nəticələrin
+                            saniyələr ərzində qarşına çıxır.
+                        </p>
+
                     </div>
                 </div>
+
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="sr-feature">
-                        <span class="sr-feature-icon"><i class="bi bi-tag"></i></span>
-                        <h3 class="sr-feature-title">Şeffaf Fiyatlandırma</h3>
-                        <p class="sr-feature-text">Gizli ücret yok. Gördüğün fiyat, ödeyeceğin fiyattır.</p>
+
+                        <span class="sr-feature-icon">
+                            <i class="bi bi-tag"></i>
+                        </span>
+
+                        <h3 class="sr-feature-title">
+                            Şəffaf qiymətləndirmə
+                        </h3>
+
+                        <p class="sr-feature-text">
+                            Gizli ödəniş yoxdur. Gördüyün qiymət,
+                            ödəyəcəyin qiymətdir.
+                        </p>
+
                     </div>
                 </div>
+
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="sr-feature">
-                        <span class="sr-feature-icon"><i class="bi bi-headset"></i></span>
-                        <h3 class="sr-feature-title">7/24 Seyahat Desteği</h3>
-                        <p class="sr-feature-text">Yolculuğunun her anında yanındayız, sorularına anında yanıt bulursun.</p>
+
+                        <span class="sr-feature-icon">
+                            <i class="bi bi-headset"></i>
+                        </span>
+
+                        <h3 class="sr-feature-title">
+                            7/24 səyahət dəstəyi
+                        </h3>
+
+                        <p class="sr-feature-text">
+                            Səyahətinin hər anında yanındayıq,
+                            suallarına anında cavab tap.
+                        </p>
+
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- =========================================================
-         6. KAMPANYALI UÇUŞLAR
-    ========================================================== -->
     <section class="sr-section" id="kampanyalar">
+
         <div class="container">
+
             <div class="sr-section-head">
-                <p class="sr-section-eyebrow">Fırsatlar</p>
-                <h2 class="sr-section-title">Kampanyalı Uçuşlar</h2>
-                <p class="sr-section-sub">Sınırlı süreli avantajlarla bütçeni koru.</p>
+
+                <p class="sr-section-eyebrow">
+                    Fürsətlər
+                </p>
+
+                <h2 class="sr-section-title">
+                    Kampaniyalı uçuşlar
+                </h2>
+
+                <p class="sr-section-sub">
+                    Məhdud müddətli fürsətlərlə büdcənə qənaət et.
+                </p>
+
             </div>
 
             <div class="row g-4">
-                <!-- Kampanya 1 -->
+
                 <div class="col-12 col-lg-4">
+
                     <article class="sr-campaign">
-                        <div class="sr-campaign-media" style="background-image:url('https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=800&q=80');">
-                            <span class="sr-campaign-badge">%15</span>
+
+                        <div class="sr-campaign-media"
+                             style="background-image:url('https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=800&q=80');">
+
+                            <span class="sr-campaign-badge">
+                                %15
+                            </span>
+
                         </div>
+
                         <div class="sr-campaign-body">
-                            <span class="sr-campaign-date"><i class="bi bi-calendar3 me-1"></i>31 Ağustos 2026'ya kadar</span>
-                            <h3 class="sr-campaign-title">Avrupa Uçuşlarında %15 İndirim</h3>
-                            <p class="sr-campaign-text">Seçili Avrupa rotalarında ekonomi bilet fiyatlarında geçerli indirim.</p>
-                            <a href="#" class="sr-campaign-link">Detayları İncele <i class="bi bi-arrow-right"></i></a>
+
+                            <span class="sr-campaign-date">
+                                <i class="bi bi-calendar3 me-1"></i>
+                                31 avqust 2026-cı ilədək
+                            </span>
+
+                            <h3 class="sr-campaign-title">
+                                Avropa uçuşlarında 15% endirim
+                            </h3>
+
+                            <p class="sr-campaign-text">
+                                Seçilmiş Avropa marşrutlarında ekonom
+                                bilet qiymətlərinə tətbiq olunan endirim.
+                            </p>
+
+                            <a href="#" class="sr-campaign-link">
+                                Ətraflı bax
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+
                         </div>
                     </article>
                 </div>
-                <!-- Kampanya 2 -->
+
                 <div class="col-12 col-lg-4">
+
                     <article class="sr-campaign">
-                        <div class="sr-campaign-media" style="background-image:url('https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&fit=crop&w=800&q=80');">
-                            <span class="sr-campaign-badge sr-badge-amber">Erken</span>
+
+                        <div class="sr-campaign-media"
+                             style="background-image:url('https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&fit=crop&w=800&q=80');">
+
+                            <span class="sr-campaign-badge sr-badge-amber">
+                                Erkən
+                            </span>
+
                         </div>
+
                         <div class="sr-campaign-body">
-                            <span class="sr-campaign-date"><i class="bi bi-calendar3 me-1"></i>Yıl boyu geçerli</span>
-                            <h3 class="sr-campaign-title">Erken Rezervasyon Fırsatları</h3>
-                            <p class="sr-campaign-text">Uçuşunu önceden planla, en uygun koltukları avantajlı fiyata yakala.</p>
-                            <a href="#" class="sr-campaign-link">Detayları İncele <i class="bi bi-arrow-right"></i></a>
+
+                            <span class="sr-campaign-date">
+                                <i class="bi bi-calendar3 me-1"></i>
+                                İl boyu keçərlidir
+                            </span>
+
+                            <h3 class="sr-campaign-title">
+                                Erkən rezervasiya fürsətləri
+                            </h3>
+
+                            <p class="sr-campaign-text">
+                                Uçuşunu əvvəlcədən planla,
+                                ən uyğun yerləri sərfəli qiymətə əldə et.
+                            </p>
+
+                            <a href="#" class="sr-campaign-link">
+                                Ətraflı bax
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+
                         </div>
                     </article>
                 </div>
-                <!-- Kampanya 3 -->
+
                 <div class="col-12 col-lg-4">
+
                     <article class="sr-campaign">
-                        <div class="sr-campaign-media" style="background-image:url('https://images.unsplash.com/photo-1521727857535-28d2047314ac?auto=format&fit=crop&w=800&q=80');">
-                            <span class="sr-campaign-badge sr-badge-teal">Aile</span>
+
+                        <div class="sr-campaign-media"
+                             style="background-image:url('https://images.unsplash.com/photo-1521727857535-28d2047314ac?auto=format&fit=crop&w=800&q=80');">
+
+                            <span class="sr-campaign-badge sr-badge-teal">
+                                Ailə
+                            </span>
+
                         </div>
+
                         <div class="sr-campaign-body">
-                            <span class="sr-campaign-date"><i class="bi bi-calendar3 me-1"></i>15 Eylül 2026'ya kadar</span>
-                            <h3 class="sr-campaign-title">Ailelere Özel Bagaj Avantajı</h3>
-                            <p class="sr-campaign-text">Aile rezervasyonlarında ek bagaj hakkı seni ve yükünü rahat ettirir.</p>
-                            <a href="#" class="sr-campaign-link">Detayları İncele <i class="bi bi-arrow-right"></i></a>
+
+                            <span class="sr-campaign-date">
+                                <i class="bi bi-calendar3 me-1"></i>
+                                15 sentyabr 2026-cı ilədək
+                            </span>
+
+                            <h3 class="sr-campaign-title">
+                                Ailələr üçün xüsusi baqaj üstünlüyü
+                            </h3>
+
+                            <p class="sr-campaign-text">
+                                Ailə rezervasiyalarında əlavə baqaj haqqı
+                                sənin və əşyalarının rahatlığını təmin edir.
+                            </p>
+
+                            <a href="#" class="sr-campaign-link">
+                                Ətraflı bax
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+
                         </div>
                     </article>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- =========================================================
-         7. ESNEK SEYAHAT BÖLÜMÜ
-    ========================================================== -->
     <section class="sr-section sr-section-alt" id="esnekSeyahat">
+
         <div class="container">
+
             <div class="row align-items-center g-5">
+
                 <div class="col-12 col-lg-6 order-2 order-lg-1">
-                    <p class="sr-section-eyebrow">Esneklik kazandırır</p>
-                    <h2 class="sr-flex-title">Tarihin esnekse daha uygun fiyatları yakala</h2>
-                    <p class="sr-flex-text">Yakın tarihlerdeki uçuşları karşılaştırarak seyahat bütçene en uygun seçeneği kolayca bul. Bir gün öncesi ya da sonrası çoğu zaman ciddi fark yaratır.</p>
+
+                    <p class="sr-section-eyebrow">
+                        Çeviklik qazandırır
+                    </p>
+
+                    <h2 class="sr-flex-title">
+                        Tarixin çevikdirsə, daha sərfəli qiymətləri əldə et
+                    </h2>
+
+                    <p class="sr-flex-text">
+                        Yaxın tarixlərdəki uçuşları müqayisə edərək
+                        səyahət büdcən üçün ən uyğun seçimi asanlıqla tap.
+                        Bir gün əvvəl və ya sonra uçmaq çox vaxt ciddi qiymət fərqi yaradır.
+                    </p>
+
                     <ul class="sr-flex-list">
-                        <li><i class="bi bi-check-circle-fill"></i> Aylık fiyat takvimiyle en ucuz günü gör</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Fiyat uyarılarıyla düşüşleri kaçırma</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Hafta içi ve hafta sonu fiyatlarını karşılaştır</li>
+
+                        <li>
+                            <i class="bi bi-check-circle-fill"></i>
+                            Aylıq qiymət təqvimi ilə ən ucuz günü gör
+                        </li>
+
+                        <li>
+                            <i class="bi bi-check-circle-fill"></i>
+                            Qiymət bildirişləri ilə endirimləri qaçırma
+                        </li>
+
+                        <li>
+                            <i class="bi bi-check-circle-fill"></i>
+                            Həftə içi və həftə sonu qiymətlərini müqayisə et
+                        </li>
+
                     </ul>
-                    <a href="#aramaPaneli" class="btn btn-sr-primary mt-2">
-                        <i class="bi bi-calendar-range me-2"></i>Esnek Tarihleri Keşfet
+
+                    <a href="#aramaPaneli"
+                       class="btn btn-sr-primary mt-2">
+
+                        <i class="bi bi-calendar-range me-2"></i>
+                        Çevik tarixləri kəşf et
+
                     </a>
                 </div>
+
                 <div class="col-12 col-lg-6 order-1 order-lg-2">
+
                     <div class="sr-flex-media">
-                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80" alt="Sahil ve seyahat manzarası" loading="lazy">
+
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80"
+                             alt="Sahil və səyahət mənzərəsi"
+                             loading="lazy">
+
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- =========================================================
-         8. MOBİL UYGULAMA TANITIMI
-    ========================================================== -->
     <section class="sr-app">
+
         <div class="container">
+
             <div class="row align-items-center g-4">
+
                 <div class="col-12 col-lg-7">
-                    <p class="sr-section-eyebrow sr-eyebrow-light">SkyRoute Uygulaması</p>
-                    <h2 class="sr-app-title">Seyahatin her an yanında</h2>
-                    <p class="sr-app-text">Uçuşlarını takip et, fiyat değişikliklerinden haberdar ol ve seyahat bilgilerine kolayca ulaş.</p>
+
+                    <p class="sr-section-eyebrow sr-eyebrow-light">
+                        SkyRoute tətbiqi
+                    </p>
+
+                    <h2 class="sr-app-title">
+                        Səyahətinin hər anında yanında
+                    </h2>
+
+                    <p class="sr-app-text">
+                        Uçuşlarını izləyin, qiymət dəyişikliklərindən xəbərdar olun
+                        və səyahət məlumatlarına asanlıqla çatın.
+                    </p>
+
                     <div class="sr-store-buttons">
+
                         <a href="#" class="sr-store-btn">
                             <i class="bi bi-apple"></i>
-                            <span><small>İndir</small><strong>App Store</strong></span>
+
+                            <span>
+                                <small>Yüklə</small>
+                                <strong>App Store</strong>
+                            </span>
                         </a>
+
                         <a href="#" class="sr-store-btn">
                             <i class="bi bi-google-play"></i>
-                            <span><small>Hemen al</small><strong>Google Play</strong></span>
+
+                            <span>
+                                <small>İndi əldə et</small>
+                                <strong>Google Play</strong>
+                            </span>
                         </a>
+
                     </div>
                 </div>
+
                 <div class="col-12 col-lg-5 text-center">
+
                     <div class="sr-app-visual">
+
                         <i class="bi bi-phone"></i>
+
                         <div class="sr-app-glow"></div>
+
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- =========================================================
-         9. BÜLTEN ABONELİĞİ
-    ========================================================== -->
     <section class="sr-newsletter">
+
         <div class="container">
+
             <div class="sr-newsletter-card">
+
                 <div class="row align-items-center g-3">
+
                     <div class="col-12 col-lg-6">
-                        <h2 class="sr-newsletter-title">Fırsatları kaçırma</h2>
-                        <p class="sr-newsletter-text">İndirimler ve yeni rotalar e-posta kutuna gelsin.</p>
+
+                        <h2 class="sr-newsletter-title">
+                            Fürsətləri qaçırma
+                        </h2>
+
+                        <p class="sr-newsletter-text">
+                            Endirimlər və yeni marşrutlar e-poçt ünvanına gəlsin.
+                        </p>
+
                     </div>
+
                     <div class="col-12 col-lg-6">
+
                         <form id="newsletterForm" novalidate>
+
                             <div class="sr-newsletter-fields">
-                                <input type="email" class="form-control sr-input" id="newsletterEmail"
-                                       placeholder="E-posta adresin" autocomplete="email" aria-label="E-posta adresi">
-                                <button type="submit" class="btn btn-sr-primary">Abone Ol</button>
+
+                                <input type="email"
+                                       class="form-control sr-input"
+                                       id="newsletterEmail"
+                                       placeholder="E-poçt ünvanınız"
+                                       autocomplete="email"
+                                       aria-label="E-poçt ünvanı">
+
+                                <button type="submit"
+                                        class="btn btn-sr-primary">
+                                    Abunə ol
+                                </button>
+
                             </div>
-                            <div class="sr-error" id="newsletterError"></div>
+
+                            <div class="sr-error"
+                                 id="newsletterError">
+                            </div>
+
                         </form>
                     </div>
+
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- =========================================================
-         10. FOOTER
-    ========================================================== -->
     <footer class="sr-footer" id="footer">
+
         <div class="container">
+
             <div class="row g-4">
-                <!-- Marka -->
+
                 <div class="col-12 col-lg-4">
-                    <a class="navbar-brand d-flex align-items-center gap-2 mb-3" href="index.html">
-                        <span class="sr-logo-mark" aria-hidden="true"><i class="bi bi-send-fill"></i></span>
-                        <span class="sr-logo-text text-white">Sky<span class="sr-logo-accent">Route</span></span>
+
+                    <a class="navbar-brand d-flex align-items-center gap-2 mb-3"
+                       href="/Flight/Index">
+
+                        <span class="sr-logo-mark"
+                              aria-hidden="true">
+                            <i class="bi bi-send-fill"></i>
+                        </span>
+
+                        <span class="sr-logo-text text-white">
+                            Sky<span class="sr-logo-accent">Route</span>
+                        </span>
+
                     </a>
-                    <p class="sr-footer-about">Yüzlerce havayolunu tek ekranda karşılaştıran bağımsız uçuş arama platformu. Doğru uçuş, doğru fiyat.</p>
+
+                    <p class="sr-footer-about">
+                        Yüzlərlə aviaşirkəti bir ekranda müqayisə edən
+                        müstəqil uçuş axtarış platforması.
+                        Doğru uçuş, doğru qiymət.
+                    </p>
+
                     <div class="sr-social">
-                        <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-                        <a href="#" aria-label="X"><i class="bi bi-twitter-x"></i></a>
-                        <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+
+                        <a href="#" aria-label="Instagram">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+
+                        <a href="#" aria-label="X">
+                            <i class="bi bi-twitter-x"></i>
+                        </a>
+
+                        <a href="#" aria-label="Facebook">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+
+                        <a href="#" aria-label="LinkedIn">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+
                     </div>
                 </div>
 
-                <!-- Footer bağlantı sütunları — mobilde accordion -->
                 <div class="col-6 col-lg-2">
+
                     <div class="sr-footer-col">
-                        <button class="sr-footer-head" type="button" data-bs-toggle="collapse" data-bs-target="#footCol1" aria-expanded="false">
-                            SkyRoute <i class="bi bi-chevron-down sr-foot-chev"></i>
+
+                        <button class="sr-footer-head"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#footCol1"
+                                aria-expanded="false">
+
+                            SkyRoute
+
+                            <i class="bi bi-chevron-down sr-foot-chev"></i>
                         </button>
-                        <ul class="collapse sr-footer-links" id="footCol1">
-                            <li><a href="#">Hakkımızda</a></li>
-                            <li><a href="#">Kariyer</a></li>
-                            <li><a href="#">Basın Odası</a></li>
-                            <li><a href="#">İletişim</a></li>
+
+                        <ul class="collapse sr-footer-links"
+                            id="footCol1">
+
+                            <li>
+                                <a href="#">Haqqımızda</a>
+                            </li>
+
+                            <li>
+                                <a href="#">Karyera</a>
+                            </li>
+
+                            <li>
+                                <a href="#">Mətbuat otağı</a>
+                            </li>
+
+                            <li>
+                                <a href="#">Əlaqə</a>
+                            </li>
+
                         </ul>
                     </div>
                 </div>
 
                 <div class="col-6 col-lg-2">
+
                     <div class="sr-footer-col">
-                        <button class="sr-footer-head" type="button" data-bs-toggle="collapse" data-bs-target="#footCol2" aria-expanded="false">
-                            Destek <i class="bi bi-chevron-down sr-foot-chev"></i>
+
+                        <button class="sr-footer-head"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#footCol2"
+                                aria-expanded="false">
+
+                            Dəstək
+
+                            <i class="bi bi-chevron-down sr-foot-chev"></i>
                         </button>
-                        <ul class="collapse sr-footer-links" id="footCol2">
-                            <li><a href="#">Yardım Merkezi</a></li>
-                            <li><a href="#">İptal ve İade</a></li>
-                            <li><a href="#">Bagaj Kuralları</a></li>
-                            <li><a href="#">Uçuş Değişikliği</a></li>
+
+                        <ul class="collapse sr-footer-links"
+                            id="footCol2">
+
+                            <li>
+                                <a href="#">Yardım mərkəzi</a>
+                            </li>
+
+                            <li>
+                                <a href="#">Ləğv və geri qaytarma</a>
+                            </li>
+
+                            <li>
+                                <a href="#">Baqaj qaydaları</a>
+                            </li>
+
+                            <li>
+                                <a href="#">Uçuş dəyişikliyi</a>
+                            </li>
+
                         </ul>
                     </div>
                 </div>
 
                 <div class="col-6 col-lg-2">
+
                     <div class="sr-footer-col">
-                        <button class="sr-footer-head" type="button" data-bs-toggle="collapse" data-bs-target="#footCol3" aria-expanded="false">
-                            Seyahat <i class="bi bi-chevron-down sr-foot-chev"></i>
+
+                        <button class="sr-footer-head"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#footCol3"
+                                aria-expanded="false">
+
+                            Səyahət
+
+                            <i class="bi bi-chevron-down sr-foot-chev"></i>
                         </button>
-                        <ul class="collapse sr-footer-links" id="footCol3">
-                            <li><a href="#">Popüler Rotalar</a></li>
-                            <li><a href="#">Havalimanları</a></li>
-                            <li><a href="#">Havayolları</a></li>
-                            <li><a href="#">Seyahat Rehberi</a></li>
+
+                        <ul class="collapse sr-footer-links"
+                            id="footCol3">
+
+                            <li>
+                                <a href="#">Populyar marşrutlar</a>
+                            </li>
+
+                            <li>
+                                <a href="#">Hava limanları</a>
+                            </li>
+
+                            <li>
+                                <a href="#">Aviaşirkətlər</a>
+                            </li>
+
+                            <li>
+                                <a href="#">Səyahət bələdçisi</a>
+                            </li>
+
                         </ul>
                     </div>
                 </div>
 
                 <div class="col-6 col-lg-2">
+
                     <div class="sr-footer-col">
-                        <button class="sr-footer-head" type="button" data-bs-toggle="collapse" data-bs-target="#footCol4" aria-expanded="false">
-                            Yasal <i class="bi bi-chevron-down sr-foot-chev"></i>
+
+                        <button class="sr-footer-head"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#footCol4"
+                                aria-expanded="false">
+
+                            Hüquqi
+
+                            <i class="bi bi-chevron-down sr-foot-chev"></i>
                         </button>
-                        <ul class="collapse sr-footer-links" id="footCol4">
-                            <li><a href="#">Gizlilik Politikası</a></li>
-                            <li><a href="#">Çerez Politikası</a></li>
-                            <li><a href="#">Kullanım Koşulları</a></li>
-                            <li><a href="#">KVKK</a></li>
+
+                        <ul class="collapse sr-footer-links"
+                            id="footCol4">
+
+                            <li>
+                                <a href="#">Məxfilik siyasəti</a>
+                            </li>
+
+                            <li>
+                                <a href="#">Kuki siyasəti</a>
+                            </li>
+
+                            <li>
+                                <a href="#">İstifadə şərtləri</a>
+                            </li>
+
+                            <li>
+                                <a href="#">KVKK</a>
+                            </li>
+
                         </ul>
                     </div>
                 </div>
+
             </div>
 
             <hr class="sr-footer-divider">
 
-            <!-- Alt bar: ödeme yöntemleri + telif -->
             <div class="sr-footer-bottom">
-                <p class="sr-copyright mb-0">© 2026 SkyRoute. Tüm hakları saklıdır.</p>
-                <div class="sr-payments" aria-label="Ödeme yöntemleri">
+
+                <p class="sr-copyright mb-0">
+                    © 2026 SkyRoute. Bütün hüquqlar qorunur.
+                </p>
+
+                <div class="sr-payments"
+                     aria-label="Ödəniş üsulları">
+
                     <i class="bi bi-credit-card-2-front"></i>
                     <i class="bi bi-credit-card"></i>
                     <i class="bi bi-paypal"></i>
                     <i class="bi bi-wallet2"></i>
+
                 </div>
+
             </div>
         </div>
     </footer>
 
-    <!-- Toast bildirim alanı -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="srToast" class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true">
+
+        <div id="srToast"
+             class="toast align-items-center border-0"
+             role="alert"
+             aria-live="assertive"
+             aria-atomic="true">
+
             <div class="d-flex">
-                <div class="toast-body" id="srToastBody"></div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Kapat"></button>
+
+                <div class="toast-body"
+                     id="srToastBody">
+                </div>
+
+                <button type="button"
+                        class="btn-close btn-close-white me-2 m-auto"
+                        data-bs-dismiss="toast"
+                        aria-label="Bağla">
+                </button>
+
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap 5 JS bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Özel scriptler -->
-    <script src="/js/script.js"></script>
+
+    <script>
+        (function () {
+            'use strict';
+
+            const ROUTES = [
+                {
+                    fromCity: 'İstanbul',
+                    toCity: 'Amsterdam',
+                    dur: '3 saat 35 dəq',
+                    price: '4.799',
+                    img: 'https://images.unsplash.com/photo-1534351590666-13e3e96b5017?auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    fromCity: 'İstanbul',
+                    toCity: 'Milan',
+                    dur: '3 saat 05 dəq',
+                    price: '4.299',
+                    img: 'https://images.unsplash.com/photo-1520440229-6469a149ac59?auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    fromCity: 'İstanbul',
+                    toCity: 'Paris',
+                    dur: '3 saat 55 dəq',
+                    price: '5.150',
+                    img: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    fromCity: 'İstanbul',
+                    toCity: 'Roma',
+                    dur: '2 saat 55 dəq',
+                    price: '3.999',
+                    img: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    fromCity: 'İstanbul',
+                    toCity: 'Berlin',
+                    dur: '3 saat 10 dəq',
+                    price: '4.450',
+                    img: 'https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    fromCity: 'İstanbul',
+                    toCity: 'London',
+                    dur: '4 saat 05 dəq',
+                    price: '5.650',
+                    img: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=800&q=80'
+                }
+            ];
+
+            const $ = (selector, context = document) =>
+                context.querySelector(selector);
+
+            const $$ = (selector, context = document) =>
+                Array.from(context.querySelectorAll(selector));
+
+            const navbar = $('#mainNavbar');
+
+            function handleNavbarScroll() {
+                if (window.scrollY > 40) {
+                    navbar.classList.add('sr-scrolled');
+                } else {
+                    navbar.classList.remove('sr-scrolled');
+                }
+            }
+
+            window.addEventListener(
+                'scroll',
+                handleNavbarScroll,
+                { passive: true }
+            );
+
+            handleNavbarScroll();
+
+            const fromInput = $('#fromInput');
+            const toInput = $('#toInput');
+            const swapBtn = $('#swapBtn');
+
+            swapBtn.addEventListener('click', () => {
+                const temporary = fromInput.value;
+
+                fromInput.value = toInput.value;
+                toInput.value = temporary;
+
+                swapBtn.classList.toggle('sr-rotate');
+
+                clearError(fromInput);
+                clearError(toInput);
+            });
+
+            const returnWrap = $('#returnWrap');
+            const returnDate = $('#returnDate');
+
+            function updateTripType() {
+                const selectedType =
+                    $('input[name="tripType"]:checked').value;
+
+                if (selectedType === 'oneway') {
+                    returnWrap.style.display = 'none';
+                    returnDate.value = '';
+                } else {
+                    returnWrap.style.display = '';
+                }
+            }
+
+            $$('input[name="tripType"]').forEach(input => {
+                input.addEventListener(
+                    'change',
+                    updateTripType
+                );
+            });
+
+            updateTripType();
+
+            const departDate = $('#departDate');
+
+            const today =
+                new Date()
+                    .toISOString()
+                    .split('T')[0];
+
+            departDate.min = today;
+            returnDate.min = today;
+
+            departDate.addEventListener('change', () => {
+                returnDate.min =
+                    departDate.value || today;
+
+                if (
+                    returnDate.value &&
+                    returnDate.value < departDate.value
+                ) {
+                    returnDate.value =
+                        departDate.value;
+                }
+
+                clearError(departDate);
+            });
+
+            const counts = {
+                adult: 1,
+                child: 0,
+                infant: 0
+            };
+
+            const MAX_TOTAL = 9;
+
+            const passengerElements = {
+                adult: $('#adultCount'),
+                child: $('#childCount'),
+                infant: $('#infantCount')
+            };
+
+            const paxNote = $('#paxNote');
+
+            function totalPassengers() {
+                return (
+                    counts.adult +
+                    counts.child +
+                    counts.infant
+                );
+            }
+
+            function updatePassengerUI() {
+
+                passengerElements.adult.textContent =
+                    counts.adult;
+
+                passengerElements.child.textContent =
+                    counts.child;
+
+                passengerElements.infant.textContent =
+                    counts.infant;
+
+                $('#passengerSummary').textContent =
+                    `${totalPassengers()} sərnişin`;
+
+                $$('.sr-step-btn').forEach(button => {
+
+                    const type =
+                        button.dataset.type;
+
+                    const action =
+                        button.dataset.action;
+
+                    let disabled = false;
+
+                    if (action === 'dec') {
+
+                        if (type === 'adult') {
+                            disabled =
+                                counts.adult <= 1;
+                        } else {
+                            disabled =
+                                counts[type] <= 0;
+                        }
+
+                    } else {
+
+                        if (
+                            totalPassengers() >=
+                            MAX_TOTAL
+                        ) {
+                            disabled = true;
+                        }
+
+                        if (
+                            type === 'infant' &&
+                            counts.infant >=
+                            counts.adult
+                        ) {
+                            disabled = true;
+                        }
+                    }
+
+                    button.disabled = disabled;
+                });
+
+                if (
+                    counts.infant >= counts.adult &&
+                    counts.infant > 0
+                ) {
+                    paxNote.textContent =
+                        'Körpələrin sayı böyüklərin sayından çox ola bilməz.';
+                } else if (
+                    totalPassengers() >= MAX_TOTAL
+                ) {
+                    paxNote.textContent =
+                        'Ən çox 9 sərnişin seçə bilərsiniz.';
+                } else {
+                    paxNote.textContent = '';
+                }
+            }
+
+            $$('.sr-step-btn').forEach(button => {
+
+                button.addEventListener('click', () => {
+
+                    const type =
+                        button.dataset.type;
+
+                    const action =
+                        button.dataset.action;
+
+                    if (action === 'inc') {
+
+                        if (
+                            totalPassengers() >=
+                            MAX_TOTAL
+                        ) {
+                            return;
+                        }
+
+                        if (
+                            type === 'infant' &&
+                            counts.infant >=
+                            counts.adult
+                        ) {
+                            return;
+                        }
+
+                        counts[type]++;
+
+                    } else {
+
+                        if (
+                            type === 'adult' &&
+                            counts.adult <= 1
+                        ) {
+                            return;
+                        }
+
+                        if (counts[type] <= 0) {
+                            return;
+                        }
+
+                        counts[type]--;
+
+                        if (
+                            type === 'adult' &&
+                            counts.infant >
+                            counts.adult
+                        ) {
+                            counts.infant =
+                                counts.adult;
+                        }
+                    }
+
+                    updatePassengerUI();
+                });
+            });
+
+            updatePassengerUI();
+
+            const cabinClass = $('#cabinClass');
+
+            const cabinLabels = {
+                economy: 'Ekonom',
+                premium: 'Premium ekonom',
+                business: 'Biznes',
+                first: 'Birinci sinif'
+            };
+
+            cabinClass.addEventListener('change', () => {
+
+                $('#cabinSummary').textContent =
+                    cabinLabels[cabinClass.value];
+            });
+
+            $('#paxDone').addEventListener('click', () => {
+
+                const toggle =
+                    $('#passengerToggle');
+
+                const dropdown =
+                    bootstrap.Dropdown.getInstance(toggle) ||
+                    new bootstrap.Dropdown(toggle);
+
+                dropdown.hide();
+            });
+
+            const routesRow =
+                $('.sr-routes-row');
+
+            routesRow.innerHTML = '';
+
+            ROUTES.forEach(route => {
+
+                const column =
+                    document.createElement('div');
+
+                column.className =
+                    'col-12 col-sm-6 col-lg-4';
+
+                column.innerHTML = `
+                    <div class="sr-route-card">
+
+                        <div class="sr-route-media"
+                             style="background-image:url('${route.img}')">
+
+                            <span class="sr-route-duration">
+                                <i class="bi bi-clock"></i>
+                                ${route.dur}
+                            </span>
+
+                        </div>
+
+                        <div class="sr-route-body">
+
+                            <div class="sr-route-path">
+
+                                <div class="sr-route-point">
+                                    <div class="sr-route-city">
+                                        ${route.fromCity}
+                                    </div>
+                                </div>
+
+                                <i class="bi bi-airplane sr-route-arrow"></i>
+
+                                <div class="sr-route-point">
+                                    <div class="sr-route-city">
+                                        ${route.toCity}
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="sr-route-price">
+                                ${route.price} ₺-dən başlayan qiymətlərlə
+                            </div>
+
+                            <button type="button"
+                                    class="btn btn-sr-outline sr-route-btn">
+
+                                <i class="bi bi-search me-1"></i>
+                                Uçuşlara bax
+
+                            </button>
+
+                        </div>
+                    </div>
+                `;
+
+                routesRow.appendChild(column);
+
+                column
+                    .querySelector('.sr-route-btn')
+                    .addEventListener('click', () => {
+
+                        fromInput.value =
+                            route.fromCity;
+
+                        toInput.value =
+                            route.toCity;
+
+                        clearError(fromInput);
+                        clearError(toInput);
+
+                        $('#aramaPaneli')
+                            .scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'center'
+                            });
+
+                        showToast(
+                            `${route.fromCity} → ${route.toCity} marşrutu forma əlavə edildi.`,
+                            'success'
+                        );
+                    });
+            });
+
+            function setError(input, message) {
+
+                input.classList.add('is-invalid');
+
+                const wrapper =
+                    input.closest('.sr-field-wrap');
+
+                if (!wrapper) {
+                    return;
+                }
+
+                const errorElement =
+                    wrapper.querySelector('.sr-error');
+
+                if (errorElement) {
+                    errorElement.textContent =
+                        message;
+                }
+            }
+
+            function clearError(input) {
+
+                input.classList.remove('is-invalid');
+
+                const wrapper =
+                    input.closest('.sr-field-wrap');
+
+                if (!wrapper) {
+                    return;
+                }
+
+                const errorElement =
+                    wrapper.querySelector('.sr-error');
+
+                if (errorElement) {
+                    errorElement.textContent = '';
+                }
+            }
+
+            function cleanCity(value) {
+                return (value || '')
+                    .trim()
+                    .replace(/\s+/g, ' ');
+            }
+
+            [fromInput, toInput].forEach(input => {
+
+                input.addEventListener('input', () => {
+                    clearError(input);
+                });
+            });
+
+            const form =
+                $('#flightSearchForm');
+
+            const searchBtn =
+                $('#searchBtn');
+
+            form.addEventListener(
+                'submit',
+                function (event) {
+
+                    event.preventDefault();
+
+                    let valid = true;
+
+                    const tripType =
+                        $('input[name="tripType"]:checked')
+                            .value;
+
+                    const fromCity =
+                        cleanCity(fromInput.value);
+
+                    const toCity =
+                        cleanCity(toInput.value);
+
+                    if (!fromCity) {
+
+                        setError(
+                            fromInput,
+                            'Gediş şəhərini yazın.'
+                        );
+
+                        valid = false;
+
+                    } else {
+                        clearError(fromInput);
+                    }
+
+                    if (!toCity) {
+
+                        setError(
+                            toInput,
+                            'Təyinat şəhərini yazın.'
+                        );
+
+                        valid = false;
+
+                    } else {
+                        clearError(toInput);
+                    }
+
+                    if (
+                        fromCity &&
+                        toCity &&
+                        fromCity.toLocaleLowerCase('az') ===
+                        toCity.toLocaleLowerCase('az')
+                    ) {
+
+                        setError(
+                            toInput,
+                            'Gediş və təyinat eyni ola bilməz.'
+                        );
+
+                        valid = false;
+                    }
+
+                    if (!departDate.value) {
+
+                        setError(
+                            departDate,
+                            'Gediş tarixini seçin.'
+                        );
+
+                        valid = false;
+
+                    } else {
+                        clearError(departDate);
+                    }
+
+                    if (tripType === 'round') {
+
+                        if (!returnDate.value) {
+
+                            setError(
+                                returnDate,
+                                'Dönüş tarixini seçin.'
+                            );
+
+                            valid = false;
+
+                        } else if (
+                            departDate.value &&
+                            returnDate.value <
+                            departDate.value
+                        ) {
+
+                            setError(
+                                returnDate,
+                                'Dönüş tarixi gediş tarixindən əvvəl ola bilməz.'
+                            );
+
+                            valid = false;
+
+                        } else {
+                            clearError(returnDate);
+                        }
+                    }
+
+                    if (!valid) {
+
+                        showToast(
+                            'Zəhmət olmasa, çatışmayan sahələri yoxlayın.',
+                            'error'
+                        );
+
+                        return;
+                    }
+
+                    const searchParams =
+                        new URLSearchParams({
+                            fromCity: fromCity,
+                            toCity: toCity,
+                            depart: departDate.value,
+                            return: returnDate.value || '',
+                            adults: counts.adult,
+                            children: counts.child,
+                            infants: counts.infant,
+                            cabin: cabinClass.value,
+                            tripType: tripType
+                        });
+
+                    searchBtn.disabled = true;
+
+                    $('.sr-btn-label', searchBtn)
+                        .classList.add('d-none');
+
+                    $('.sr-btn-loading', searchBtn)
+                        .classList.remove('d-none');
+
+                    window.location.href =
+                        '/Flight/Search?' +
+                        searchParams.toString();
+                }
+            );
+
+            const newsletterForm =
+                $('#newsletterForm');
+
+            const newsletterEmail =
+                $('#newsletterEmail');
+
+            const newsletterError =
+                $('#newsletterError');
+
+            const EMAIL_RE =
+                /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+
+            newsletterForm.addEventListener(
+                'submit',
+                function (event) {
+
+                    event.preventDefault();
+
+                    const value =
+                        newsletterEmail.value.trim();
+
+                    if (!value) {
+
+                        newsletterError.textContent =
+                            'E-poçt ünvanı tələb olunur.';
+
+                        newsletterEmail
+                            .classList
+                            .add('is-invalid');
+
+                    } else if (!EMAIL_RE.test(value)) {
+
+                        newsletterError.textContent =
+                            'Düzgün e-poçt ünvanı daxil edin.';
+
+                        newsletterEmail
+                            .classList
+                            .add('is-invalid');
+
+                    } else {
+
+                        newsletterError.textContent = '';
+
+                        newsletterEmail
+                            .classList
+                            .remove('is-invalid');
+
+                        newsletterEmail.value = '';
+
+                        showToast(
+                            'Abunəliyiniz uğurla yaradıldı.',
+                            'success'
+                        );
+                    }
+                }
+            );
+
+            newsletterEmail.addEventListener(
+                'input',
+                () => {
+
+                    newsletterEmail
+                        .classList
+                        .remove('is-invalid');
+
+                    newsletterError.textContent = '';
+                }
+            );
+
+            function showToast(message, type) {
+
+                const toastElement =
+                    $('#srToast');
+
+                $('#srToastBody')
+                    .textContent = message;
+
+                toastElement.classList.remove(
+                    'sr-toast-success',
+                    'sr-toast-error'
+                );
+
+                if (type === 'success') {
+                    toastElement.classList.add(
+                        'sr-toast-success'
+                    );
+                }
+
+                if (type === 'error') {
+                    toastElement.classList.add(
+                        'sr-toast-error'
+                    );
+                }
+
+                const toast =
+                    bootstrap.Toast.getInstance(
+                        toastElement
+                    ) ||
+                    new bootstrap.Toast(
+                        toastElement,
+                        {
+                            delay: 3500
+                        }
+                    );
+
+                toast.show();
+            }
+
+        })();
+    </script>
 </body>
 </html>
